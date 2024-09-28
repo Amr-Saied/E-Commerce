@@ -1,11 +1,12 @@
 ﻿using E_Commerce.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class ECommerceDbContext : DbContext
+public class ECommerceDbContext : IdentityDbContext<User>
 {
     public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options) { }
 
-    public DbSet<User> Users { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Cart> Carts { get; set; }
@@ -20,22 +21,34 @@ public class ECommerceDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // User -> Order (One-to-Many)
+        modelBuilder.Entity<User>()
+             .HasIndex(u => u.Email)
+             .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.UserName)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.PhoneNumber)
+            .IsUnique();
+
+        // IdentityUser -> Order (One-to-Many)
         modelBuilder.Entity<Order>()
-            .HasOne(o => o.User)
-            .WithMany(u => u.Orders)
+            .HasOne<User>(o => o.User)
+            .WithMany()
             .HasForeignKey(o => o.UserId);
 
-        // User -> ShippingAddress (One-to-Many)
+        // IdentityUser -> ShippingAddress (One-to-Many)
         modelBuilder.Entity<ShippingAddress>()
-            .HasOne(sa => sa.User)
-            .WithMany(u => u.ShippingAddresses)
+            .HasOne<User>(sa => sa.User)
+            .WithMany()
             .HasForeignKey(sa => sa.UserId);
 
-        // User -> Review (One-to-Many)
+        // IdentityUser -> Review (One-to-Many)
         modelBuilder.Entity<Review>()
-            .HasOne(r => r.User)
-            .WithMany(u => u.Reviews)
+            .HasOne<User>(r => r.User)
+            .WithMany()
             .HasForeignKey(r => r.UserId);
 
         // Product -> Category (Many-to-One)

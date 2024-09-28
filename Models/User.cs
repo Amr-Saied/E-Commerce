@@ -1,13 +1,9 @@
-﻿namespace E_Commerce.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace E_Commerce.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string PasswordHash { get; set; }
-        public string Email { get; set; }
-        public string Role { get; set; }  // Admin, Customer, etc.
-        public string JwtToken { get; set; }
         public DateTime RegistrationDate { get; set; }
 
         // Navigation properties

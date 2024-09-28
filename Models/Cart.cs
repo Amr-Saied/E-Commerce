@@ -5,7 +5,7 @@
         public int Id { get; set; }
 
         // Foreign key to User
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
 
         // Navigation property
