@@ -22,7 +22,7 @@ namespace E_Commerce.Controllers
 {
     [Route("[Controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
 
         private readonly UserManager<User> _userManager;
@@ -62,7 +62,8 @@ namespace E_Commerce.Controllers
             {
                 UserName = register.Username,
                 Email = register.Email,
-                PhoneNumber = register.PhoneNumber
+                PhoneNumber = register.PhoneNumber,
+                RegistrationDate = DateTime.Now
             };
 
             var result = await _userManager.CreateAsync(user, register.Password);
@@ -89,6 +90,8 @@ namespace E_Commerce.Controllers
 
             return BadRequest("Error occurred during registration.");
         }
+
+
 
         [AllowAnonymous]
         [HttpPost("Signin")]
@@ -117,7 +120,7 @@ namespace E_Commerce.Controllers
                 return Unauthorized("Invalid username/email or password.");
             }
 
-            var token = TokenGenerator(user);
+            var token = TokenGenerator(user, "User");
 
             return Ok(new
             {
@@ -127,7 +130,7 @@ namespace E_Commerce.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("EmailConfirmation")]
+        [HttpPut("EmailConfirmation")]
         public async Task<IActionResult> EmailConfirmation(string token, string email)
         {
             if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(email))
@@ -151,7 +154,7 @@ namespace E_Commerce.Controllers
         }
 
 
-        private string TokenGenerator(User user)
+        private string TokenGenerator(User user, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -164,6 +167,7 @@ namespace E_Commerce.Controllers
                 {
                     new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new(ClaimTypes.Name, user.UserName),
+                    new(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.LifeTime)
             };

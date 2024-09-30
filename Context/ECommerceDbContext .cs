@@ -7,6 +7,9 @@ public class ECommerceDbContext : IdentityDbContext<User>
 {
     public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options) { }
 
+
+    public DbSet<Admin> Admins { get; set; }
+    public DbSet<Seller> Sellers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Cart> Carts { get; set; }
@@ -21,6 +24,13 @@ public class ECommerceDbContext : IdentityDbContext<User>
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Admin>()
+            .HasKey(a => a.Id);  
+
+        modelBuilder.Entity<Admin>()
+            .Property(a => a.Id)
+            .ValueGeneratedOnAdd();
+
         modelBuilder.Entity<User>()
              .HasIndex(u => u.Email)
              .IsUnique();
@@ -29,9 +39,15 @@ public class ECommerceDbContext : IdentityDbContext<User>
             .HasIndex(u => u.UserName)
             .IsUnique();
 
-        modelBuilder.Entity<User>()
-            .HasIndex(u => u.PhoneNumber)
+        modelBuilder.Entity<Seller>()
+            .HasIndex(s => s.UserName)
             .IsUnique();
+
+        modelBuilder.Entity<Seller>()
+            .HasIndex(s => s.Email)
+            .IsUnique();
+
+
 
         // IdentityUser -> Order (One-to-Many)
         modelBuilder.Entity<Order>()
@@ -98,6 +114,13 @@ public class ECommerceDbContext : IdentityDbContext<User>
             .HasOne(c => c.ParentCategory)
             .WithMany(c => c.ChildCategories)
             .HasForeignKey(c => c.ParentCategoryId)
-            .OnDelete(DeleteBehavior.Restrict); // Prevent circular cascade delete
+            .OnDelete(DeleteBehavior.Restrict); // Prevent circular cascade 
+
+        // Define the one-to-many relationship between Seller and Product
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Seller)
+            .WithMany(s => s.Products)
+            .HasForeignKey(p => p.SellerId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

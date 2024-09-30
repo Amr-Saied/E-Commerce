@@ -13,6 +13,10 @@ public class Product
     public int CategoryId { get; set; }
     public Category Category { get; set; }
 
+    // Foreign key and navigation property to Seller
+    public string SellerId { get; set; }
+    public Seller Seller { get; set; }
+
     // Navigation properties
     public ICollection<CartItem> CartItems { get; set; }
     public ICollection<OrderItem> OrderItems { get; set; }

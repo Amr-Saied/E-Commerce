@@ -290,3 +290,8 @@ D:\work\E-commerce\E-Commerce\obj\Debug\net8.0\ref\E-Commerce.dll
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\DnsClient.dll
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\SendGrid.dll
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\StarkbankEcdsa.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.AspNetCore.DataProtection.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
