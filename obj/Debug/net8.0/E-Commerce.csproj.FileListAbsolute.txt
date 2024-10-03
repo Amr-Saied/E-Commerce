@@ -295,3 +295,14 @@ D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.AspNetCore.DataProtecti
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Extensions.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Primitives.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Server.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Google.Apis.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Google.Apis.Auth.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Google.Apis.Core.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\System.Management.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+D:\work\E-commerce\E-Commerce\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

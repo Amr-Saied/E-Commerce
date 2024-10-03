@@ -2,6 +2,9 @@
 using DnsClient;
 using E_Commerce.DTO;
 using E_Commerce.Models;
+using Google.Apis.Auth;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -92,7 +95,6 @@ namespace E_Commerce.Controllers
         }
 
 
-
         [AllowAnonymous]
         [HttpPost("Signin")]
         public async Task<IActionResult> Signin([FromBody] LoginDTO login)
@@ -128,6 +130,7 @@ namespace E_Commerce.Controllers
                 token = token
             });
         }
+
 
         [AllowAnonymous]
         [HttpPut("EmailConfirmation")]
