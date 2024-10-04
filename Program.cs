@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using E_Commerce.Repository;
+using E_Commerce.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,6 +102,10 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Store the results in cookies
 });
+
+
+builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("Twilio"));
+builder.Services.AddTransient<ISMsService, SmsService>();
 
 var app = builder.Build();
 

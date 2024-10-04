@@ -14,6 +14,7 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using SendGrid.Helpers.Mail;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -27,20 +28,29 @@ namespace E_Commerce.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
+        private readonly ECommerceDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly JwtOptions _jwtOptions;
         private readonly ILogger<UserController> _logger;
         private readonly IEmailSender _emailSender;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, JwtOptions jwtoptions, ILogger<UserController> logger, IEmailSender emailSender)
+        public UserController(
+
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager, 
+            JwtOptions jwtoptions, 
+            ILogger<UserController> logger, 
+            IEmailSender emailSender,
+            ECommerceDbContext context)
+
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtOptions = jwtoptions;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [AllowAnonymous]
@@ -182,7 +192,7 @@ namespace E_Commerce.Controllers
 
         [AllowAnonymous]
         [HttpPost("Resend-Email-Confirmation")]
-        public async Task<IActionResult> ResendEmailConfirmation([FromBody] ResendEmailDTO resendEmailDTO)
+        public async Task<IActionResult> ResendEmailConfirmation([FromBody] UserResendEmailDTO resendEmailDTO)
         {
             var user = await _userManager.FindByEmailAsync(resendEmailDTO.Email);
             if (user == null)
@@ -209,7 +219,7 @@ namespace E_Commerce.Controllers
 
         [AllowAnonymous]
         [HttpPost("Reset-Password-Request")]
-        public async Task<IActionResult> ResetPasswordRequest([FromBody] ResetPasswordRequestDTO ResetPasswordReq)
+        public async Task<IActionResult> ResetPasswordRequest([FromBody] UserResetPasswordRequestDTO ResetPasswordReq)
         {
             var user = await _userManager.FindByEmailAsync(ResetPasswordReq.Email);
             if (user == null)
@@ -259,6 +269,66 @@ namespace E_Commerce.Controllers
 
             return BadRequest("Error occurred during password reset.");
         }
+
+
+        [AllowAnonymous]
+        [HttpGet("google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var redirectUrl = Url.Action(nameof(GoogleResponse));
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet]
+        [Route("signin-google")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            // Get the access token from the authentication properties
+            var accessToken = result.Properties.GetTokenValue("access_token");
+
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            var name = result.Principal.FindFirstValue(ClaimTypes.Name);
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found.");
+            }
+
+            return Ok(AuthenticateUser(email));
+
+        }
+
+        private async Task<string> AuthenticateUser(string email)
+        {
+            var userExists = _context.Users.FirstOrDefault(s => s.Email == email);
+
+            if (userExists != null)
+            {
+                var token = TokenGenerator(userExists, "User");
+                return token;
+            }
+            var user = new User
+            {
+                Email = email,
+                EmailConfirmed = true,
+                RegistrationDate = DateTime.Now,
+            };
+
+            _context.Add(user);
+            _context.SaveChanges();
+
+            var token_2 = TokenGenerator(user, "User");
+            return token_2;
+        }
+
 
     }
 }

@@ -1,5 +1,7 @@
 ﻿using E_Commerce.DTO;
 using E_Commerce.Models;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -8,9 +10,14 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Protocol.Plugins;
+using SendGrid.Helpers.Mail;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using E_Commerce.Services;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Twilio.Rest.Studio.V2.Flow;
+using Microsoft.Win32;
 
 namespace E_Commerce.Controllers
 {
@@ -130,6 +137,36 @@ namespace E_Commerce.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("Resend-Email-Confirmation")]
+        public async Task<IActionResult> ResendEmailConfirmation([FromBody] SellerResendEmailDTO resendEmailDTO)
+        {
+
+            var SellerExists = _Context.Sellers.FirstOrDefault(s => s.Email == resendEmailDTO.Email);
+
+            if (SellerExists != null)
+            {
+                return BadRequest("Username Or Email already exists.");
+            }
+
+            var token = _TokenService.GenerateToken(SellerExists);
+            var param = new Dictionary<string, string>
+            {
+                { "token" , token },
+                { "email" , SellerExists.Email}
+            };
+
+            var callBack = QueryHelpers.AddQueryString(resendEmailDTO.ClientUri, param);
+
+            var emailSubject = "Email Confirmation Token";
+            var emailContent = $"Please confirm your account by clicking this link: <a href='{callBack}'>link</a>";
+
+            await _EmailSender.SendEmailAsync(SellerExists.Email, emailSubject, emailContent);
+
+            return Ok("Email Sent Successfully!");
+        }
+
+
+        [AllowAnonymous]
         [HttpPut("Seller-ConFirm-Email")]
         public IActionResult ConfirmEmail(string token, string email)
         {
@@ -179,5 +216,129 @@ namespace E_Commerce.Controllers
             var accessToken = tokenHandler.WriteToken(token);
             return accessToken;
         }
+
+
+        [AllowAnonymous]
+        [HttpGet("google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var redirectUrl = Url.Action(nameof(GoogleResponse));
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet]
+        [Route("signin-google")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            // Get the access token from the authentication properties
+            var accessToken = result.Properties.GetTokenValue("access_token");
+
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            var name = result.Principal.FindFirstValue(ClaimTypes.Name);
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found.");
+            }
+
+            return Ok(AuthenticateSeller(email));
+        }
+
+        private async Task<string> AuthenticateSeller(string email)
+        {
+            var SellerExists= _Context.Sellers.FirstOrDefault(s => s.Email == email);
+
+            if (SellerExists != null)
+            {
+                var token = TokenGenerator(SellerExists, "Seller");
+                return token;
+            }
+            var seller = new Seller
+            {
+                Email = email,
+                EmailConfirmed = true,
+                RegistrationDate = DateTime.Now,
+            };
+
+            _Context.Add(seller);
+            _Context.SaveChanges();
+
+            var token_2 = TokenGenerator(seller, "Seller");
+            return token_2;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Reset-Password-Request")]
+        public async Task<IActionResult> ResetPasswordRequest([FromBody] SellerResetPasswordRequestDTO ResetPasswordReq)
+        {
+            var seller = await _Context.Sellers.FirstOrDefaultAsync(S => S.Email == ResetPasswordReq.Email);
+            if (seller == null)
+            {
+                return BadRequest("Seller not found.");
+            }
+
+            var token = _TokenService.GeneratePasswordResetToken(seller);
+            var param = new Dictionary<string, string>
+            {
+                { "token" , token },
+                { "email" , seller.Email}
+            };
+
+            var callBack = QueryHelpers.AddQueryString(ResetPasswordReq.ClientUri, param);
+
+            var emailSubject = "Password Reset Token";
+            var emailContent = $"Reset Your Password by clicking this link: <a href='{callBack}'>link</a>";
+
+            await _EmailSender.SendEmailAsync(seller.Email, emailSubject, emailContent);
+
+            return Ok("Password Reset Email was sent Successfully!");
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Reset-Password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var seller = await _Context.Sellers.FirstOrDefaultAsync(s => s.Email == resetPasswordDTO.Email);
+            if (seller == null)
+            {
+                return BadRequest("Seller not found.");
+            }
+            var result = SellerResetPasswordAsync(seller, resetPasswordDTO.Token, resetPasswordDTO.NewPassword);
+
+            if (result)
+            {
+                return Ok("Password Reseted Successfully!");
+            }
+            return BadRequest("Something Went Wronge while Resting Your Password!");
+
+        }
+
+        private bool SellerResetPasswordAsync(Seller seller, string token, string NewPassword)
+        {
+            if (!_TokenService.ValidatePasswordResetToken(token, seller)){
+                return false; 
+            }
+
+            var passwordHasher = new PasswordHasher<Seller>();
+            seller.PasswordHash = passwordHasher.HashPassword(seller, NewPassword);
+
+            return true;
+
+        }
+
     }
 }
