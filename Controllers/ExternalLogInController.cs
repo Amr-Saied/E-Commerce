@@ -17,6 +17,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Google.Apis.Auth;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 
 namespace E_Commerce.Controllers
@@ -29,211 +33,82 @@ namespace E_Commerce.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly JwtOptions _jwtOptions;
+        private readonly ECommerceDbContext _context;
 
         public ExternalLoginController(
             SignInManager<User> signInManager,
             UserManager<User> userManager,
             IEmailSender emailSender,
-            JwtOptions jwtOptions1)
+            JwtOptions jwtOptions1,
+            ECommerceDbContext context)
             
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
             _jwtOptions = jwtOptions1;
+            _context = context;
         }
 
 
 
-        [HttpGet]
-        [Route("GoogleLogin")]
+        [AllowAnonymous]
+        [HttpGet("google-login")]
         public IActionResult GoogleLogin()
         {
-            var provider = "Google";
-
-            var redirectUrl = "/api/ExternalLogin/signin-google";
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return new ChallengeResult(provider, properties);
+            var redirectUrl = Url.Action(nameof(GoogleResponse));
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
         }
-
-
 
         [HttpGet]
         [Route("signin-google")]
-        public async Task<IActionResult> GoogleResponse(string accessToken)
+        public async Task<IActionResult> GoogleResponse()
         {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
 
-
-            var userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
-
-            using (var httpClient = new HttpClient())
+            if (!result.Succeeded)
             {
-                // Set the Authorization header with the access token
-                httpClient.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-                // Send the request to the UserInfo API
-                var response = await httpClient.GetAsync(userInfoEndpoint);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return BadRequest("Failed to retrieve user info from Google.");
-                }
-
-                // Parse the response
-                var content = await response.Content.ReadAsStringAsync();
-                var userInfo = JObject.Parse(content);
-
-                // Extract user information
-                string email = userInfo["email"]?.ToString();
-                string name = userInfo["name"]?.ToString();
-                string givenName = userInfo["given_name"]?.ToString();
-                string familyName = userInfo["family_name"]?.ToString();
-                string pictureUrl = userInfo["picture"]?.ToString();
-
-                // Return user information or handle it as needed
-                return Ok(new
-                {
-                    Name = name,
-                    Email = email,
-                    GivenName = givenName,
-                    FamilyName = familyName,
-                    PictureUrl = pictureUrl
-                });
+                return BadRequest();
             }
 
-            // Call Google's userinfo API with the access token
+            // Get the access token from the authentication properties
+            var accessToken = result.Properties.GetTokenValue("access_token");
 
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            var name = result.Principal.FindFirstValue(ClaimTypes.Name);
 
-            //    // At this point, you have the userInfo object populated with user data from Google
-            //    var email = userInfo.Email;
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found.");
+            }
 
-            //    // Continue with your existing logic
-            //    var result = await _signInManager.ExternalLoginSignInAsync("Google", userInfo.Id, isPersistent: false, bypassTwoFactor: true);
-            //    if (result.Succeeded)
-            //    {
-            //        var ValidUser = await _userManager.FindByLoginAsync("Google", userInfo.Id);
-            //        var token = TokenGenerator(ValidUser, "User");
-            //        return Ok(new { token = token, message = "Google sign-in successful" });
-            //    }
+              return Ok(AuthenticateUser(email));
 
-            //    if (result.IsLockedOut)
-            //    {
-            //        return Unauthorized("User is locked out.");
-            //    }
-
-            //    // If the user does not have an account, create one.
-            //    var user = await _userManager.FindByEmailAsync(email);
-            //    if (user == null)
-            //    {
-            //        // Create a new user without password
-            //        user = new User
-            //        {
-            //            UserName = email,
-            //            Email = email,
-            //            RegistrationDate = DateTime.UtcNow
-            //        };
-
-            //        var identityResult = await _userManager.CreateAsync(user);
-            //        if (!identityResult.Succeeded)
-            //        {
-            //            return BadRequest("Error creating new user.");
-            //        }
-
-            //        await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", userInfo.Id, "Google"));
-
-            //        // Send email confirmation if necessary
-            //        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            //        var param = new Dictionary<string, string>
-            //{
-            //    { "token", token },
-            //    { "email", user.Email }
-            //};
-
-            //        var callBack = QueryHelpers.AddQueryString("https://localhost:7104/User/EmailConfirmation", param);
-            //        var emailSubject = "Confirm your email";
-            //        var emailContent = $"Please confirm your account by clicking this link: <a href='{callBack}'>link</a>";
-            //        await _emailSender.SendEmailAsync(user.Email, emailSubject, emailContent);
-            //    }
-
-            //    // Sign the user in after account creation or login
-            //    await _signInManager.SignInAsync(user, isPersistent: false);
-
-            //    // Generate JWT token
-            //    var jwtToken = TokenGenerator(user, "User");
-            //    return Ok(new { token = jwtToken, message = "Google sign-in successful!" });
         }
 
+        private async Task<string>AuthenticateUser(string email)
+        {
+            var userExists = _context.Users.FirstOrDefault(s => s.Email == email);
 
+            if (userExists != null)
+            {
+                var token = TokenGenerator(userExists, "User");
+                return token;
+            }
+            var user = new User
+            {
+                Email = email,
+                EmailConfirmed = true,
+                RegistrationDate = DateTime.Now,
+            };
 
-        //[HttpGet]
-        //[Route("signin-google")]
-        //public async Task<IActionResult> GoogleResponse(string accessToken)
-        //{
-        //    var info = await _signInManager.GetExternalLoginInfoAsync();
-        //    if (info == null)
-        //    {
-        //        return BadRequest("Error loading external login information.");
-        //    }
+            _context.Add(user);
+            _context.SaveChanges();
 
-        //    // Sign in the user with this external login provider if the user already has a login.
-        //    var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-        //    if (result.Succeeded)
-        //    {
-        //        var ValidUser = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-        //        var token = TokenGenerator(ValidUser, "User");
-        //        return Ok(new { token = token, message = "Google sign-in successful" });
-        //    }
-
-        //    if (result.IsLockedOut)
-        //    {
-        //        return Unauthorized("User is locked out.");
-        //    }
-
-        //    // If the user does not have an account, create one.
-        //    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-        //    var user = await _userManager.FindByEmailAsync(email);
-
-        //    if (user == null)
-        //    {
-        //        // Create a new user without password
-        //        user = new User
-        //        {
-        //            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-        //            Email = email,
-        //            RegistrationDate = DateTime.UtcNow
-        //        };
-
-        //        var identityResult = await _userManager.CreateAsync(user);
-        //        if (!identityResult.Succeeded)
-        //        {
-        //            return BadRequest("Error creating new user.");
-        //        }
-
-        //        await _userManager.AddLoginAsync(user, info);
-
-        //        // Send email confirmation if necessary
-        //        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-        //        var param = new Dictionary<string, string> { 
-        //            { "token", token }, 
-        //            { "email", user.Email } 
-        //        };
-
-        //        var callBack = QueryHelpers.AddQueryString("https://localhost:7104/User/EmailConfirmation", param);
-        //        var emailSubject = "Confirm your email";
-        //        var emailContent = $"Please confirm your account by clicking this link: <a href='{callBack}'>link</a>";
-        //        await _emailSender.SendEmailAsync(user.Email, emailSubject, emailContent);
-        //    }
-
-        //    // Sign the user in after account creation or login
-        //    await _signInManager.SignInAsync(user, isPersistent: false);
-
-        //    // Generate JWT token
-        //    var jwtToken = TokenGenerator(user, "User");
-        //    return Ok(new { token = jwtToken, message = "Google sign-in successful!" });
-        //}
+            var token_2 = TokenGenerator(user, "User");
+            return token_2;
+        }
 
         private string TokenGenerator(User user, string role)
         {

@@ -77,8 +77,9 @@ var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
 builder.Services.AddSingleton(jwtOptions);
 builder.Services.AddAuthentication(options =>
 {
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Use cookies as the default scheme
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 
 }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
@@ -92,14 +93,12 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey))
     };
-}).AddGoogle(options =>
+}).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) // Register cookie authentication
+.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 {
-    IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-
-    options.ClientId = googleAuthNSection["ClientId"];
-    options.ClientSecret = googleAuthNSection["ClientSecret"];
-    //options.CallbackPath = new PathString("/signin-google");
-
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Store the results in cookies
 });
 
 var app = builder.Build();
