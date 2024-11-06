@@ -8,27 +8,33 @@ public class ECommerceDbContext : IdentityDbContext<User>
     public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options) { }
 
 
+
     public DbSet<Admin> Admins { get; set; }
     public DbSet<Seller> Sellers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<Cart> Carts { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+    public DbSet<Variance> Variances { get; set; }
+    public DbSet<Value> Values { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Admin>()
-            .HasKey(a => a.Id);  
+            .HasKey(a => a.Id);
 
         modelBuilder.Entity<Admin>()
             .Property(a => a.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Id)
             .ValueGeneratedOnAdd();
 
         modelBuilder.Entity<User>()
@@ -46,6 +52,10 @@ public class ECommerceDbContext : IdentityDbContext<User>
         modelBuilder.Entity<Seller>()
             .HasIndex(s => s.Email)
             .IsUnique();
+
+        modelBuilder.Entity<Category>()
+            .Property(c => c.Id)
+            .ValueGeneratedOnAdd();
 
 
 
@@ -79,12 +89,6 @@ public class ECommerceDbContext : IdentityDbContext<User>
             .WithMany(p => p.Reviews)
             .HasForeignKey(r => r.ProductId);
 
-        // Cart -> CartItem (One-to-Many)
-        modelBuilder.Entity<CartItem>()
-            .HasOne(ci => ci.Cart)
-            .WithMany(c => c.CartItems)
-            .HasForeignKey(ci => ci.CartId);
-
         // CartItem -> Product (Many-to-One)
         modelBuilder.Entity<CartItem>()
             .HasOne(ci => ci.Product)
@@ -109,18 +113,41 @@ public class ECommerceDbContext : IdentityDbContext<User>
             .WithOne(o => o.Payment)
             .HasForeignKey<Payment>(p => p.OrderId);
 
-        // Self-referencing Category (Parent-Child)
-        modelBuilder.Entity<Category>()
-            .HasOne(c => c.ParentCategory)
-            .WithMany(c => c.ChildCategories)
-            .HasForeignKey(c => c.ParentCategoryId)
-            .OnDelete(DeleteBehavior.Restrict); // Prevent circular cascade 
-
         // Define the one-to-many relationship between Seller and Product
         modelBuilder.Entity<Product>()
             .HasOne(p => p.Seller)
             .WithMany(s => s.Products)
             .HasForeignKey(p => p.SellerId)
             .OnDelete(DeleteBehavior.Cascade);
+
+
+        // Define the many-to-many relationship between Product and Variance
+        modelBuilder.Entity<ProductVariance>()
+            .HasKey(pv => new { pv.ProductId, pv.VarianceId });
+
+        modelBuilder.Entity<ProductVariance>()
+            .HasOne(pv => pv.product)
+            .WithMany(p => p.productVariances)
+            .HasForeignKey(pv => pv.ProductId);
+
+        modelBuilder.Entity<ProductVariance>()
+            .HasOne(pv => pv.variance)
+            .WithMany(v => v.ProductVariances)
+            .HasForeignKey(pv => pv.VarianceId);
+
+        // Define the many-to-many relationship between Variance and Value
+        modelBuilder.Entity<VarianceValue>()
+            .HasKey(vv => new { vv.VarianceId, vv.ValueId });
+
+        modelBuilder.Entity<VarianceValue>()
+            .HasOne(vv => vv.variance)
+            .WithMany(v => v.VarianceValues)
+            .HasForeignKey(vv => vv.VarianceId);
+
+        modelBuilder.Entity<VarianceValue>()
+            .HasOne(vv => vv.Value)
+            .WithMany(v => v.VarianceValues)
+            .HasForeignKey(vv => vv.ValueId);
+
     }
 }

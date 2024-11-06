@@ -40,25 +40,6 @@ namespace E_Commerce.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("E_Commerce.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("E_Commerce.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -67,20 +48,20 @@ namespace E_Commerce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CartItems");
                 });
@@ -93,20 +74,11 @@ namespace E_Commerce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentCategoryId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -202,6 +174,21 @@ namespace E_Commerce.Migrations
                         .IsUnique();
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.ProductVariance", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VarianceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "VarianceId");
+
+                    b.HasIndex("VarianceId");
+
+                    b.ToTable("ProductVariance");
                 });
 
             modelBuilder.Entity("E_Commerce.Models.Review", b =>
@@ -397,6 +384,55 @@ namespace E_Commerce.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("E_Commerce.Models.Value", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Option")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Values");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.Variance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Variances");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.VarianceValue", b =>
+                {
+                    b.Property<int>("VarianceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VarianceId", "ValueId");
+
+                    b.HasIndex("ValueId");
+
+                    b.ToTable("VarianceValue");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -560,9 +596,6 @@ namespace E_Commerce.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -572,44 +605,19 @@ namespace E_Commerce.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("E_Commerce.Models.Cart", b =>
-                {
-                    b.HasOne("E_Commerce.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("E_Commerce.Models.CartItem", b =>
                 {
-                    b.HasOne("E_Commerce.Models.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Product", "Product")
                         .WithMany("CartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cart");
+                    b.HasOne("E_Commerce.Models.User", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("E_Commerce.Models.Category", b =>
-                {
-                    b.HasOne("E_Commerce.Models.Category", "ParentCategory")
-                        .WithMany("ChildCategories")
-                        .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("E_Commerce.Models.Order", b =>
@@ -657,6 +665,25 @@ namespace E_Commerce.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("E_Commerce.Models.ProductVariance", b =>
+                {
+                    b.HasOne("Product", "product")
+                        .WithMany("productVariances")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_Commerce.Models.Variance", "variance")
+                        .WithMany("ProductVariances")
+                        .HasForeignKey("VarianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
+
+                    b.Navigation("variance");
+                });
+
             modelBuilder.Entity("E_Commerce.Models.Review", b =>
                 {
                     b.HasOne("Product", "Product")
@@ -693,6 +720,25 @@ namespace E_Commerce.Migrations
                         .HasForeignKey("UserId1");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.VarianceValue", b =>
+                {
+                    b.HasOne("E_Commerce.Models.Value", "Value")
+                        .WithMany("VarianceValues")
+                        .HasForeignKey("ValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_Commerce.Models.Variance", "variance")
+                        .WithMany("VarianceValues")
+                        .HasForeignKey("VarianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Value");
+
+                    b.Navigation("variance");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -765,15 +811,8 @@ namespace E_Commerce.Migrations
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("E_Commerce.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
             modelBuilder.Entity("E_Commerce.Models.Category", b =>
                 {
-                    b.Navigation("ChildCategories");
-
                     b.Navigation("Products");
                 });
 
@@ -792,11 +831,25 @@ namespace E_Commerce.Migrations
 
             modelBuilder.Entity("E_Commerce.Models.User", b =>
                 {
+                    b.Navigation("CartItems");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
 
                     b.Navigation("ShippingAddresses");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.Value", b =>
+                {
+                    b.Navigation("VarianceValues");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.Variance", b =>
+                {
+                    b.Navigation("ProductVariances");
+
+                    b.Navigation("VarianceValues");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -806,6 +859,8 @@ namespace E_Commerce.Migrations
                     b.Navigation("OrderItems");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("productVariances");
                 });
 #pragma warning restore 612, 618
         }

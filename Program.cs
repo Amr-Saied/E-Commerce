@@ -38,6 +38,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddSingleton<TokenService>();
+//builder.Services.AddScoped<ISellerService, SellerService>();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -124,5 +125,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();
