@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using E_Commerce.Repository;
 using E_Commerce.Interfaces;
+using E_Commerce.DbInitliazer;
+using Microsoft.EntityFrameworkCore.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +37,7 @@ builder.Services.AddCors(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddSingleton<TokenService>();
 //builder.Services.AddScoped<ISellerService, SellerService>();
@@ -124,7 +126,17 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+SeedDatabase();
+
 app.MapControllers();
 
-
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbIntializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbIntializer.Initialize();
+    }
+}
