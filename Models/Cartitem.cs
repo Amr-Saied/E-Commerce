@@ -1,13 +1,15 @@
-﻿namespace E_Commerce.Models
+﻿using Microsoft.Build.Evaluation;
+
+namespace E_Commerce.Models
 {
     public class CartItem
     {
-        public int Id { get; set; }
+        public int CartItemId { get; set; }
+        public int CartId { get; set; }
+        public int ProductItemId { get; set; }
+        public int Qty { get; set; }
 
-        // Foreign keys
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
-        public int Quantity { get; set; }
+        public Cart Cart { get; set; }
+        public ProductItem ProductItem { get; set; }
     }
 }

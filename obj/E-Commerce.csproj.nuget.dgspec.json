@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work\\E-commerce\\E-Commerce\\E-Commerce.csproj": {}
+    "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj": {}
   },
   "projects": {
-    "D:\\work\\E-commerce\\E-Commerce\\E-Commerce.csproj": {
+    "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work\\E-commerce\\E-Commerce\\E-Commerce.csproj",
+        "projectUniqueName": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
         "projectName": "E-Commerce",
-        "projectPath": "D:\\work\\E-commerce\\E-Commerce\\E-Commerce.csproj",
+        "projectPath": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
         "packagesPath": "C:\\Users\\amrsa\\.nuget\\packages\\",
-        "outputPath": "D:\\work\\E-commerce\\E-Commerce\\obj\\",
+        "outputPath": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\amrsa\\AppData\\Roaming\\NuGet\\NuGet.Config",

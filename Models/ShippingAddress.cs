@@ -1,16 +1,21 @@
-﻿namespace E_Commerce.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace E_Commerce.Models
 {
     public class ShippingAddress
     {
-        public int Id { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
-
-        // Foreign key to User
+        [Key]
+        public int UserAddressId { get; set; }
         public string UserId { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string PostalCode { get; set; }
+        public int CountryId { get; set; }
+        public bool IsDefault { get; set; }
+
         public User User { get; set; }
+        public Country Country { get; set; }
     }
 }

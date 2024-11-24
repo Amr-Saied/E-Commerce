@@ -1,6 +1,6 @@
-﻿using Microsoft.Build.ObjectModelRemoting;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace E_Commerce.DTO
 {
@@ -8,12 +8,14 @@ namespace E_Commerce.DTO
     {
         public string Username { get; set; }
 
+        [CustomEmailValidation(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
+
         public string Password { get; set; }
 
         public string PhoneNumber { get; set; }
 
         [JsonIgnore]
-        public string ClientUri { get; set; } = @"https://localhost:7104/Seller/Seller-ConFirm-Email";
+        public string ClientUri { get; set; } = @"http://pazzify.runasp.net/Seller/Seller-ConFirm-Email";
     }
 }

@@ -14,6 +14,7 @@ using E_Commerce.Repository;
 using E_Commerce.Interfaces;
 using E_Commerce.DbInitliazer;
 using Microsoft.EntityFrameworkCore.Internal;
+using E_Commerce.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -126,17 +127,17 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-SeedDatabase();
+//SeedDatabase();
 
 app.MapControllers();
 
 app.Run();
 
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbIntializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbIntializer.Initialize();
-    }
-}
+//void SeedDatabase()
+//{
+//    using (var scope = app.Services.CreateScope())
+//    {
+//        var dbIntializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+//        dbIntializer.Initialize();
+//    }
+//}

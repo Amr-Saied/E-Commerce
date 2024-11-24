@@ -2,13 +2,10 @@
 {
     public class Cart
     {
-        public int Id { get; set; }
-
-        // Foreign key to User
+        public int CartId { get; set; }
         public string UserId { get; set; }
-        public User User { get; set; }
 
-        // Navigation property
+        public User User { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
     }
 }

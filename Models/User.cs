@@ -7,10 +7,14 @@ namespace E_Commerce.Models
     {
         public DateTime RegistrationDate { get; set; }
 
+        public Cart cart { get; set; }
+
+        public int CartId {  get; set; }
+
         // Navigation properties
-        public ICollection<CartItem> CartItems { get; set; }
+        public ICollection<ShippingAddress> Addresses { get; set; }
+        public Cart ShoppingCart { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<ShippingAddress> ShippingAddresses { get; set; }
         public ICollection<Review> Reviews { get; set; }
     }
 }

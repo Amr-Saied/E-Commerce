@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using E_Commerce.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.DbInitliazer
 {

@@ -7,6 +7,6 @@ namespace E_Commerce.DTO
         public string Email { get; set; }
 
         [JsonIgnore]
-        public string ClientUri { get; set; } = @"https://localhost:7104/User/Seller-ConFirm-Email";
+        public string ClientUri { get; set; } = @"http://pazzify.runasp.net/Seller/Seller-ConFirm-Email";
     }
 }

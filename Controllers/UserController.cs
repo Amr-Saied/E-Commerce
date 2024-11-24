@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using DnsClient;
+using E_Commerce.Context;
 using E_Commerce.DTO;
 using E_Commerce.Models;
 using Google.Apis.Auth;
@@ -57,10 +58,7 @@ namespace E_Commerce.Controllers
         [HttpPost("Add-User")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO register)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
 
             var userExists = await _userManager.FindByNameAsync(register.Username) != null ||
                              await _userManager.FindByEmailAsync(register.Email) != null ||
@@ -70,7 +68,7 @@ namespace E_Commerce.Controllers
             {
                 return BadRequest("Username, Email, or Phone Number already exists.");
             }
-
+              
             var user = new User
             {
                 UserName = register.Username,
@@ -82,6 +80,7 @@ namespace E_Commerce.Controllers
             var result = await _userManager.CreateAsync(user, register.Password);
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
             var param = new Dictionary<string, string>
             {
                 { "token" , token },
@@ -98,7 +97,11 @@ namespace E_Commerce.Controllers
 
             if (result.Succeeded)
             {
-                return Ok("Registration successful!");
+                return Ok(new 
+                {
+                     message = "Registration successful!",
+                     token = token
+                });
             }
 
             return BadRequest("Error occurred during registration.");
