@@ -1,18 +1,18 @@
-﻿//using E_Commerce.DTO;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-//using Microsoft.Identity.Client;
+﻿using E_Commerce.Models;
+using System.Threading.Tasks;
 
-//namespace E_Commerce.Interfaces
-//{
-//    public interface ISellerService
-//    {
-//        public Task<bool> AddProduct(ProductDTO productDto);
+namespace E_Commerce.Interfaces
+{
+    public interface ISellerService
+    {
+        Task<Product> AddProductAsync(Product product);
 
-//        //public Task<bool> AddAttribute(AttributeDTO attribute, string SellerId);
+        Task<ProductItem> AddProductItemAsync(ProductItem productItem);
 
-//        public Task<bool> IsExists(ProductDTO product, string SellerId);
+        Task<ProductConfiguration> AddProductConfigurationAsync(ProductConfiguration productConfiguration);
 
-//        public Task<bool> CategoryExists(ProductDTO product);
-//    }
-//}
+        Task<bool> CheckCategoryExistsAsync(int categoryId);
+
+        Task<bool> CheckVariationExistsAsync(int variationId);
+    }
+}
