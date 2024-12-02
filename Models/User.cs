@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Identity.Client;
 using System.Collections.Generic;
 
 namespace E_Commerce.Models
@@ -16,5 +17,7 @@ namespace E_Commerce.Models
         public Cart ShoppingCart { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Review> Reviews { get; set; }
+
+        public ICollection<PaymentMethod> PaymentMethods { get; set; }
     }
 }

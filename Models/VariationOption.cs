@@ -9,5 +9,8 @@ namespace E_Commerce.Models
         public string Value { get; set; }
 
         public Variation Variation { get; set; }
+
+        public ICollection<ProductConfiguration> ProductConfigurations { get; set; }
+
     }
 }

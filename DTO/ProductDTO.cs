@@ -3,7 +3,6 @@
     public class ProductDTO
     {
         public string Name { get; set; }
-        public decimal Price { get; set; } // base price if necessary (but this is likely handled per ProductItem)
         public int CategoryId { get; set; }
         public string Description { get; set; }
         public List<VariationDTO> Variations { get; set; } // Variations with price and option details
