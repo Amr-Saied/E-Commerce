@@ -1,8 +1,10 @@
 ﻿using E_Commerce.DTO;
 using E_Commerce.Interfaces;
 using E_Commerce.Models;
+using E_Commerce.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace E_Commerce.Controllers
@@ -14,12 +16,15 @@ namespace E_Commerce.Controllers
         private readonly ISellerService _SellerService;
         private readonly ICategoryService _CategoryService;
         private readonly IVariationService _VariationService;
+        private readonly IProductService _ProductService;
 
-        public SellerProductController(ISellerService sellerService, ICategoryService categoryService, IVariationService variationService)
+        public SellerProductController(ISellerService sellerService, ICategoryService categoryService, 
+            IVariationService variationService, IProductService productService)
         {
             _SellerService = sellerService;
             _CategoryService = categoryService;
             _VariationService = variationService;
+            _ProductService = productService;
         }
 
         [HttpGet("GetAllCategories")]
@@ -88,6 +93,62 @@ namespace E_Commerce.Controllers
             }
 
             return Ok(savedProduct);
+        }
+
+        [Authorize(Roles = "Seller, Admin")]
+        [HttpGet("GetProductItems/{sellerId}")]
+        public async Task<IActionResult> GetProductItems(string sellerId)
+        {
+            var realSellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (realSellerId == sellerId)
+            {
+                var productItems = await _SellerService.GetProductItemsBySellerAsync(sellerId);
+                if (productItems == null || !productItems.Any())
+                {
+                    return NotFound("No product items found for this seller.");
+                }
+
+                return Ok(productItems);
+            }
+            else
+            {
+                return Forbid("Not Authorized");
+            }
+
+        }
+
+        [Authorize(Roles = "Seller, Admin")]
+        [HttpDelete("DeleteProductItem/{productItemId}")]
+        public async Task<IActionResult> DeleteProductItem(int productItemId)
+        {
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var productItem = await _SellerService.DeleteProductItemAsync(productItemId, sellerId);
+
+            if (productItem == null)
+            {
+                return NotFound("Product item not found or you do not have permission to delete this item.");
+            }
+
+            return Ok("Product item deleted successfully.");
+        }
+
+        [Authorize(Roles = "Seller, Admin")]
+        [HttpPut("EditProductItem/{productItemId}")]
+        public async Task<IActionResult> EditProductItem(int productItemId, [FromBody] EditProductDTO productItemDTO)
+        {
+            if (productItemDTO == null)
+            {
+                return BadRequest("Invalid product data.");
+            }
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var updatedProductItem = await _SellerService.EditProductItemAsync(productItemDTO, sellerId, productItemId);
+
+            if (updatedProductItem == null)
+            {
+                return NotFound("Product item not found or you do not have permission to edit this item.");
+            }
+
+            return Ok(updatedProductItem);
         }
 
         private string GenerateSKU(int productId, int variationId)
