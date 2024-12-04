@@ -17,27 +17,6 @@ namespace E_Commerce.Services
             _context = context;
         }
 
-        public async Task<Product> AddProductAsync(Product product)
-        {
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
-            return product;
-        }
-
-        public async Task<ProductItem> AddProductItemAsync(ProductItem productItem)
-        {
-            await _context.ProductItems.AddAsync(productItem);
-            await _context.SaveChangesAsync();
-            return productItem;
-        }
-
-        public async Task<ProductConfiguration> AddProductConfigurationAsync(ProductConfiguration productConfiguration)
-        {
-            await _context.ProductConfigurations.AddAsync(productConfiguration);
-            await _context.SaveChangesAsync();
-            return productConfiguration;
-        }
-
         public async Task<bool> CheckCategoryExistsAsync(int categoryId)
         {
             return await _context.Categories.AnyAsync(c => c.CategoryId == categoryId);
