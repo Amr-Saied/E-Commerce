@@ -80,5 +80,55 @@ namespace E_Commerce.Services
             }
         }
 
+        public async Task AddReviewAsync(Review review)
+        {
+            _context.Reviews.Add(review);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<Product?> GetProductByNormalizedNameAsync(string normalizedProductName)
+        {
+            try
+            {
+                return await _context.Products
+                    .Include(p => p.ProductItems) 
+                    .FirstOrDefaultAsync(p => p.Name == normalizedProductName);
+            }
+            catch (Exception ex)
+            {
+                return null; 
+            }
+        }
+
+        public async Task<bool> AddProductItemAsync(ProductItem productItem)
+        {
+            try
+            {
+                _context.ProductItems.Add(productItem);
+
+                var result = await _context.SaveChangesAsync();
+
+                return result > 0; 
+            }
+            catch (Exception ex)
+            {
+                return false; 
+            }
+        }
+
+        public async Task<bool> UpdateProductItemAsync(ProductItem productItem)
+        {
+            try
+            {
+                _context.ProductItems.Update(productItem);
+                var result = await _context.SaveChangesAsync();
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

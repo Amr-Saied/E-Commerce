@@ -49,24 +49,62 @@ namespace E_Commerce.Controllers
         }
 
         [Authorize(Roles = "Seller, Admin")]
-        [HttpPost("AddProduct")]
-        public async Task<IActionResult> AddProduct([FromBody] AddProductRequestDTO productRequest)
+        [HttpPost("AddProductItem")]
+        public async Task<IActionResult> AddProductItem([FromBody] AddProductRequestDTO productRequest)
         {
-            // Get seller ID from claims
             var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(sellerId))
             {
                 return Unauthorized("Seller not identified.");
             }
 
-            // Validate category
             var category = await _CategoryService.GetCategoryByIdAsync(productRequest.CategoryId);
             if (category == null)
             {
                 return BadRequest("Invalid category.");
             }
 
-            // Validate variations and options
+            var normalizedProductName = productRequest.Name.ToLower().Replace(" ", "");
+
+            var existingProduct = await _ProductService.GetProductByNormalizedNameAsync(normalizedProductName);
+
+            Product product;
+            if (existingProduct != null)
+            {
+                product = existingProduct;
+            }
+            else
+            {
+                product = new Product
+                {
+                    Name = normalizedProductName,
+                    CategoryId = productRequest.CategoryId,
+                    ProductItems = new List<ProductItem>()
+                };
+
+                var productAdded = await _ProductService.AddProductAsync(product);
+                if (!productAdded)
+                {
+                    return StatusCode(500, "Error occurred while creating the product.");
+                }
+            }
+
+            var productItem = new ProductItem
+            {
+                SKU = productRequest.SKU,
+                Price = productRequest.Price,
+                QtyInStock = productRequest.QtyInStock,
+                Description = productRequest.Description,
+                ProductImage = productRequest.ProductImage,
+                SellerId = sellerId,
+            };
+
+            var productItemAdded = await _ProductService.AddProductItemAsync(productItem);
+            if (!productItemAdded)
+            {
+                return StatusCode(500, "Error occurred while saving the product item.");
+            }
+
             foreach (var variation in productRequest.Variations)
             {
                 var variationEntity = await _VariationService.GetVariationByIdAsync(variation.VariationId, productRequest.CategoryId);
@@ -80,41 +118,24 @@ namespace E_Commerce.Controllers
                 {
                     return BadRequest($"Invalid variation option: {variation.VariationOptionId}");
                 }
-            }
 
-            // Create product entity
-            var product = new Product
-            {
-                Name = productRequest.Name,
-                CategoryId = productRequest.CategoryId,
-                ProductItems = new List<ProductItem>
-        {
-            new ProductItem
-            {
-                SKU = productRequest.SKU,
-                Price = productRequest.Price,
-                QtyInStock = productRequest.QtyInStock,
-                Description = productRequest.Description,
-                ProductImage = productRequest.ProductImage,
-                SellerId = sellerId,
-                ProductConfigurations = productRequest.Variations.Select(v => new ProductConfiguration
+                var productConfiguration = new ProductConfiguration
                 {
-                    VariationOptionId = v.VariationOptionId
-                }).ToList()
-            }
-        }
-            };
+                    VariationOptionId = variation.VariationOptionId,
+                    ProductItemId = productItem.Id 
+                };
 
-            // Save product
-            var result = await _ProductService.AddProductAsync(product);
-            if (!result)
+                productItem.ProductConfigurations.Add(productConfiguration);
+            }
+
+            var productConfigurationsAdded = await _ProductService.UpdateProductItemAsync(productItem);
+            if (!productConfigurationsAdded)
             {
-                return StatusCode(500, "Error occurred while saving the product.");
+                return StatusCode(500, "Error occurred while saving product configurations.");
             }
 
-            return Ok("Product added successfully.");
+            return Ok("Product item and configurations added successfully.");
         }
-
 
 
         [Authorize(Roles = "Seller, Admin")]

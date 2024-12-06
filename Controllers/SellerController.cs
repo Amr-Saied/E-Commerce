@@ -63,7 +63,7 @@ namespace E_Commerce.Controllers
                 UserName = register.Username,
                 Email = register.Email,
                 RegistrationDate = DateTime.Now,
-
+                PhoneNumber = register.PhoneNumber
             };
 
             var passwordHasher = new PasswordHasher<Seller>();
