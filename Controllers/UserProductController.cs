@@ -18,15 +18,17 @@ namespace E_Commerce.Controllers
     public class UserProductController : ControllerBase
     {
         private readonly IProductService _ProductService;
+        private readonly IPaginationService _PaginationService;
 
-        public UserProductController(IProductService productService)
+        public UserProductController(IProductService productService, IPaginationService paginationService)
         {
             _ProductService = productService;
+            _PaginationService = paginationService;
         }
 
         [AllowAnonymous]
         [HttpGet("SearchProducts")]
-        public async Task<IActionResult> SearchProducts([FromQuery] string keyword)
+        public async Task<IActionResult> SearchProducts([FromQuery] string keyword, int pageNumber = 1, int pageSize = 10)
         {
             if (string.IsNullOrWhiteSpace(keyword))
             {
@@ -42,7 +44,14 @@ namespace E_Commerce.Controllers
                     return NotFound("No products found matching the given keyword.");
                 }
 
-                return Ok(productItems);
+                if (pageNumber <= 0 || pageSize <= 0)
+                {
+                    return BadRequest("Page number and page size must be greater than zero.");
+                }
+
+                var paginatedResult = await _PaginationService.GetPaginatedResultAsync(productItems, pageNumber, pageSize);
+
+                return Ok(paginatedResult);
             }
             catch (ArgumentException ex)
             {
@@ -97,6 +106,64 @@ namespace E_Commerce.Controllers
                 return BadRequest($"Error adding review: {ex.Message}");
             }
         }
+
+
+        [AllowAnonymous]
+        [HttpGet("TopRatedProducts")]
+        public async Task<IActionResult> GetTopRatedProducts(int pageNumber = 1, int pageSize = 10)
+        {
+            try
+            {
+                if (pageNumber <= 0 || pageSize <= 0)
+                {
+                    return BadRequest("Page number and page size must be greater than zero.");
+                }
+
+                var topRatedItems = await _ProductService.GetTopRatedProductsAsync();
+
+                if (topRatedItems == null || !topRatedItems.Any())
+                {
+                    return NotFound("No top-rated products found.");
+                }
+
+                var paginatedResult = _PaginationService.GetPaginatedResultAsync(topRatedItems, pageNumber, pageSize);
+
+                return Ok(paginatedResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while processing your request: {ex.Message}");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetProductItemsByCategory/{categoryId}")]
+        public async Task<IActionResult> GetProductItemsByCategory(int categoryId, int pageNumber = 1, int pageSize = 10)
+        {
+            try
+            {
+                if (pageNumber <= 0 || pageSize <= 0)
+                {
+                    return BadRequest("Page number and page size must be greater than zero.");
+                }
+
+                var productItems = await _ProductService.GetProductItemsByCategoryAsync(categoryId);
+
+                if (productItems == null || !productItems.Any())
+                {
+                    return NotFound("No products found in the specified category.");
+                }
+
+                var paginatedResult = await _PaginationService.GetPaginatedResultAsync(productItems, pageNumber, pageSize);
+
+                return Ok(paginatedResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while processing your request: {ex.Message}");
+            }
+        }
+
 
     }
 }

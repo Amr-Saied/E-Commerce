@@ -1,4 +1,5 @@
-﻿using E_Commerce.Models;
+﻿using E_Commerce.DTO;
+using E_Commerce.Models;
 
 namespace E_Commerce.Interfaces
 {
@@ -16,6 +17,11 @@ namespace E_Commerce.Interfaces
 
         public Task<bool> UpdateProductItemAsync(ProductItem productItem);
 
+        public Task<ProductItem> GetProductItemByIdAsync(int productItemId);
+
+        public Task<IEnumerable<ProductItem>> GetProductItemsByCategoryAsync(int categoryId);
+
+        public Task<IEnumerable<ProductItemDTO>> GetTopRatedProductsAsync();
 
     }
 }

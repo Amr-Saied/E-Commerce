@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Context;
+using E_Commerce.DTO;
 using E_Commerce.Interfaces;
 using E_Commerce.Models;
 using Microsoft.EntityFrameworkCore;
@@ -129,6 +130,47 @@ namespace E_Commerce.Services
             }
         }
 
+        public async Task<ProductItem?> GetProductItemByIdAsync(int productItemId)
+        {
+            return await _context.ProductItems
+                .Include(pi => pi.Product) // Include related product details
+                .Include(pi => pi.Seller) // Optionally include the seller
+                .FirstOrDefaultAsync(pi => pi.Id == productItemId);
+        }
+
+        public async Task<IEnumerable<ProductItemDTO>> GetTopRatedProductsAsync()
+        {
+            var items = await _context.ProductItems
+                .Include(p => p.OrderLines)
+                .ThenInclude(ol => ol.Reviews)
+                .Where(p => p.OrderLines.Any(ol => ol.Reviews.Any()))
+                .Select(p => new ProductItemDTO
+                {
+                    Id = p.Id,
+                    Name = p.Product.Name,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ProductImage = p.ProductImage,
+                    AverageRating = p.OrderLines
+                                      .SelectMany(ol => ol.Reviews)
+                                      .Average(r => (double?)r.RatingValue) ?? 0
+                })
+                .OrderByDescending(p => p.AverageRating)
+                .ToListAsync();
+
+            return items;
+        }
+
+        public async Task<IEnumerable<ProductItem>> GetProductItemsByCategoryAsync(int categoryId)
+        {
+
+            var items = await _context.ProductItems
+                                      .Where(pi => pi.Product.CategoryId == categoryId)
+                                      .OrderBy(pi => pi.Id)
+                                      .ToListAsync();
+
+            return items;
+        }
 
     }
 }

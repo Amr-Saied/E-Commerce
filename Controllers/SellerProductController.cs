@@ -137,7 +137,6 @@ namespace E_Commerce.Controllers
             return Ok("Product item and configurations added successfully.");
         }
 
-
         [Authorize(Roles = "Seller, Admin")]
         [HttpGet("GetProductItems/{sellerId}")]
         public async Task<IActionResult> GetProductItems(string sellerId)

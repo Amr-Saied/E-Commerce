@@ -8,5 +8,6 @@ namespace E_Commerce.Interfaces
         Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync();
         public Task<Category> GetCategoryByIdAsync(int categoryId);
 
+        //Task<IEnumerable<Category>> GetCategoriesWithSubCategoriesAsync();
     }
 }
