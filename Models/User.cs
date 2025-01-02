@@ -14,10 +14,11 @@ namespace E_Commerce.Models
 
         // Navigation properties
         public ICollection<ShippingAddress> Addresses { get; set; }
-        public Cart ShoppingCart { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
         public ICollection<PaymentMethod> PaymentMethods { get; set; }
+        public ICollection<WishListItems> WishlistItems { get; set; }
+
     }
 }

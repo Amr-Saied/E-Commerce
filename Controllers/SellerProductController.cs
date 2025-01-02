@@ -4,6 +4,7 @@ using E_Commerce.Models;
 using E_Commerce.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Evaluation;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -14,17 +15,19 @@ namespace E_Commerce.Controllers
     public class SellerProductController : ControllerBase
     {
         private readonly ISellerService _SellerService;
+        private readonly INotificationService _notificationService;
         private readonly ICategoryService _CategoryService;
         private readonly IVariationService _VariationService;
         private readonly IProductService _ProductService;
 
         public SellerProductController(ISellerService sellerService, ICategoryService categoryService, 
-            IVariationService variationService, IProductService productService)
+            IVariationService variationService, IProductService productService,INotificationService notificationService)
         {
             _SellerService = sellerService;
             _CategoryService = categoryService;
             _VariationService = variationService;
             _ProductService = productService;
+            _notificationService = notificationService;
         }
 
         [HttpGet("GetAllCategories")]
@@ -79,6 +82,7 @@ namespace E_Commerce.Controllers
                 };
 
                 await _SellerService.AddProductItemAsync(productItem);
+                _ = Task.Run(() => _notificationService.NotifyUserWishListAsync(productItem.Id));
 
                 foreach (var optionId in variationDTO.VariationOptionIds)
                 {
@@ -147,7 +151,6 @@ namespace E_Commerce.Controllers
             {
                 return NotFound("Product item not found or you do not have permission to edit this item.");
             }
-
             return Ok(updatedProductItem);
         }
 

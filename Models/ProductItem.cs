@@ -16,5 +16,7 @@
         public ICollection<CartItem> CartItems { get; set; }
         public ICollection<OrderLine> OrderLines { get; set; }
         public ICollection<ProductConfiguration> ProductConfigurations { get; set; }
+        public ICollection<WishListItems> WishlistItems { get; set; }
+
     }
 }

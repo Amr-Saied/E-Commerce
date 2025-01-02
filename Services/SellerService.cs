@@ -11,10 +11,11 @@ namespace E_Commerce.Services
     public class SellerService : ISellerService
     {
         private readonly ECommerceDbContext _context;
-
-        public SellerService(ECommerceDbContext context)
+        private readonly INotificationService _notificationService;
+        public SellerService(ECommerceDbContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public async Task<Product> AddProductAsync(Product product)
@@ -80,6 +81,8 @@ namespace E_Commerce.Services
             {
                 existingProductItem.Price = productItem.Price;
                 existingProductItem.Description = productItem.Description;
+                if(existingProductItem.QtyInStock == 0 && productItem.QtyInStock != 0)
+                    _ = Task.Run(() => _notificationService.NotifyUserWishListAsync(existingProductItem.Id));
                 existingProductItem.QtyInStock = productItem.QtyInStock;
                 existingProductItem.ProductImage = productItem.ProductImage;
                 await _context.SaveChangesAsync();

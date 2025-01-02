@@ -11309,19 +11309,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\amrsa\\.nuget\\packages\\": {}
+    "C:\\Users\\10\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
+      "projectUniqueName": "C:\\Users\\10\\Desktop\\ecommerce\\E-Commerce\\E-Commerce.csproj",
       "projectName": "E-Commerce",
-      "projectPath": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
-      "packagesPath": "C:\\Users\\amrsa\\.nuget\\packages\\",
-      "outputPath": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\obj\\",
+      "projectPath": "C:\\Users\\10\\Desktop\\ecommerce\\E-Commerce\\E-Commerce.csproj",
+      "packagesPath": "C:\\Users\\10\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\10\\Desktop\\ecommerce\\E-Commerce\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\amrsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\10\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11329,6 +11329,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11450,7 +11451,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
