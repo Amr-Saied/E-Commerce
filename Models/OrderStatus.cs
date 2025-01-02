@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public string Status { get; set; }
 
-        public ICollection<Order> ShopOrders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

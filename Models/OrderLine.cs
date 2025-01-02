@@ -12,5 +12,7 @@ namespace E_Commerce.Models
 
         public ProductItem ProductItem { get; set; }
         public Order Order { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace E_Commerce.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public ICollection<Order> ShopOrders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

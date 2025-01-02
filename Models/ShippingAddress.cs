@@ -14,8 +14,9 @@ namespace E_Commerce.Models
         public string PostalCode { get; set; }
         public int CountryId { get; set; }
         public bool IsDefault { get; set; }
-
         public User User { get; set; }
         public Country Country { get; set; }
+
+        public ICollection<Order> orders { get; set; }
     }
 }

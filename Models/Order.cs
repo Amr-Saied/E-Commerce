@@ -11,10 +11,13 @@
         public decimal OrderTotal { get; set; }
         public int OrderStatusId { get; set; }
 
+        public PaymentMethod PaymentMethod { get; set; }
+
         public User User { get; set; }
         public ShippingAddress ShippingAddress { get; set; }
         public ShippingMethod ShippingMethod { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public ICollection<OrderLine> OrderLines { get; set; }
+
     }
 }
