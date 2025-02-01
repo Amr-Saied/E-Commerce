@@ -198,8 +198,8 @@
   },
   {
     "ContainingType": "E_Commerce.Controllers.SellerProductController",
-    "Method": "AddProduct",
-    "RelativePath": "SellerProduct/AddProduct",
+    "Method": "AddProductItem",
+    "RelativePath": "SellerProduct/AddProductItem",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -430,6 +430,127 @@
   },
   {
     "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "AddToWishlist",
+    "RelativePath": "UserProduct/add_wishlsit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productItemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "AddReview",
+    "RelativePath": "UserProduct/AddReview",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewDTO",
+        "Type": "E_Commerce.DTO.ReviewDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "AddToCart",
+    "RelativePath": "UserProduct/addToCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productItemId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "quantity",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "GetUserWishlist",
+    "RelativePath": "UserProduct/get_wishlist",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "GetProductItemsByCategory",
+    "RelativePath": "UserProduct/GetProductItemsByCategory/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "RemoveFromWishlist",
+    "RelativePath": "UserProduct/remove_wishlist",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productItemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "RemoveFromCart",
+    "RelativePath": "UserProduct/removeFromCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productItemId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
     "Method": "SearchProducts",
     "RelativePath": "UserProduct/SearchProducts",
     "HttpMethod": "GET",
@@ -440,8 +561,49 @@
         "Name": "keyword",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "GetTopRatedProducts",
+    "RelativePath": "UserProduct/TopRatedProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "GetUserCartItems",
+    "RelativePath": "UserProduct/user-cart-items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

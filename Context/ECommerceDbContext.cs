@@ -33,6 +33,7 @@ namespace E_Commerce.Context
         public DbSet<ShippingMethod> ShippingMethods { get; set; }
         public DbSet<Variation> Variations { get; set; }
         public DbSet<VariationOption> VariationOptions { get; set; }
+        public DbSet<WishListItems> WishlistItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -208,6 +209,16 @@ namespace E_Commerce.Context
                 .WithMany(ol => ol.Reviews)
                 .HasForeignKey(ur => ur.OrderLineId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WishListItems>()
+                .HasOne(w => w.User)
+                .WithMany(u => u.WishlistItems)
+                .HasForeignKey(w => w.UserId);
+
+            modelBuilder.Entity<WishListItems>()
+                .HasOne(w => w.ProductItem)
+                .WithMany(p => p.WishlistItems)
+                .HasForeignKey(w => w.ProductItemId);
         }
     }
 }

@@ -164,6 +164,94 @@ namespace E_Commerce.Controllers
             }
         }
 
+        [Authorize(Roles = "User")]
+        [HttpPost("addToCart")]
+        public async Task<IActionResult> AddToCart(int productItemId, int quantity)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _ProductService.AddToCartAsync(userId, productItemId, quantity);
+                return Ok("Item added to cart successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "User")]
+        [HttpPost("removeFromCart")]
+        public async Task<IActionResult> RemoveFromCart(int productItemId)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _ProductService.RemoveFromCartAsync(userId, productItemId);
+                return Ok("Item removed from cart successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "User")]
+        [HttpGet("user-cart-items")]
+        public async Task<IActionResult> GetUserCartItems()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return Unauthorized(new { Error = "User is not authenticated." });
+            }
+
+            var cartItems = await _ProductService.GetCartItemsAsync(userId);
+
+            return Ok(cartItems);
+        }
+        [Authorize(Roles = "User")]
+        [HttpPost("add_wishlsit")]
+        public async Task<IActionResult> AddToWishlist([FromBody] int productItemId)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _ProductService.AddToWishlistAsync(userId, productItemId);
+                return Ok(new { Message = "Item added to wishlist successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { Error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+        [HttpDelete("remove_wishlist")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> RemoveFromWishlist([FromBody] int productItemId)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _ProductService.RemoveFromWishlistAsync(userId, productItemId);
+                return Ok(new { Message = "Item removed from wishlist successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { Error = ex.Message });
+            }
+        }
+
+        [HttpGet("get_wishlist")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetUserWishlist()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var wishlist = await _ProductService.GetUserWishlistAsync(userId);
+            return Ok(wishlist);
+        }
 
     }
 }

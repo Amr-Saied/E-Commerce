@@ -44,7 +44,9 @@ builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<ISellerService, SellerService>();
 builder.Services.AddScoped<IVariationService, VariationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 builder.Services.AddSwaggerGen(options =>
 {
