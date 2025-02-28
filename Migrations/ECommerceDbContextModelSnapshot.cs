@@ -17,7 +17,7 @@ namespace E_Commerce.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -652,6 +652,9 @@ namespace E_Commerce.Migrations
 
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsNotified")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductItemId")
                         .HasColumnType("int");

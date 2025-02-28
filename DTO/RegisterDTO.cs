@@ -16,7 +16,7 @@ namespace E_Commerce.DTO
         public string PhoneNumber { get; set; }
 
         [JsonIgnore]
-        public string ClientUri { get; set; } = @"http://pazzify.runasp.net/User/EmailConfirmation";
+        public string ClientUri { get; set; } = @"https://ecommerce.amrkhaled.me/User/EmailConfirmation";
     }
 
     public class CustomEmailValidationAttribute : ValidationAttribute

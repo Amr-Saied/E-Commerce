@@ -2,6 +2,7 @@
 using DnsClient;
 using E_Commerce.Context;
 using E_Commerce.DTO;
+using E_Commerce.Interfaces;
 using E_Commerce.Models;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication;
@@ -35,15 +36,18 @@ namespace E_Commerce.Controllers
         private readonly JwtOptions _jwtOptions;
         private readonly ILogger<UserController> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUserService _userService;
 
         public UserController(
 
-            UserManager<User> userManager, 
-            SignInManager<User> signInManager, 
-            JwtOptions jwtoptions, 
-            ILogger<UserController> logger, 
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            JwtOptions jwtoptions,
+            ILogger<UserController> logger,
             IEmailSender emailSender,
-            ECommerceDbContext context)
+            ECommerceDbContext context,
+            IUserService userService)
+
 
         {
             _userManager = userManager;
@@ -52,6 +56,7 @@ namespace E_Commerce.Controllers
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -68,7 +73,7 @@ namespace E_Commerce.Controllers
             {
                 return BadRequest("Username, Email, or Phone Number already exists.");
             }
-              
+
             var user = new User
             {
                 UserName = register.Username,
@@ -97,10 +102,10 @@ namespace E_Commerce.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(new 
+                return Ok(new
                 {
-                     message = "Registration successful!",
-                     token = token
+                    message = "Registration successful!",
+                    token = token
                 });
             }
 
@@ -245,7 +250,7 @@ namespace E_Commerce.Controllers
             await _emailSender.SendEmailAsync(user.Email, emailSubject, emailContent);
 
             return Ok("Password Reset Email was sent Successfully!");
-            
+
         }
 
         [AllowAnonymous]
@@ -332,6 +337,34 @@ namespace E_Commerce.Controllers
             return token_2;
         }
 
+        [Authorize(Roles = "User")]
+        [HttpPost("AddShippingAddress")]
+        public async Task<IActionResult> AddShippingAddress([FromBody] ShippingAddress shippingAddress)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (shippingAddress == null)
+            {
+                return BadRequest("Shipping address is required.");
+            }
+
+            var addedAddress = await _userService.AddShippingAddressAsync(userId, shippingAddress);
+            return Ok(new { message = "Shipping address added successfully", shippingAddress = addedAddress });
+        }
+        [Authorize(Roles = "User")]
+        [HttpGet("GetShippingAddresses")]
+        public async Task<IActionResult> GetShippingAddresses()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var addresses = await _userService.GetShippingAddressesByUserIdAsync(userId);
+            if (addresses == null || !addresses.Any())
+            {
+                return NotFound(new { message = "No shipping addresses found for the user" });
+            }
+
+            return Ok(addresses);
+
+
+        }
     }
 }

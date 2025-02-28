@@ -321,9 +321,6 @@ D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\E-Commerce.deps.json
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\E-Commerce.runtimeconfig.json
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\E-Commerce.dll
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\E-Commerce.pdb
-D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Extensions.dll
-D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Primitives.dll
-D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\AspNet.Security.OpenIdConnect.Server.dll
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\Azure.Core.dll
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\Azure.Identity.dll
 D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\DnsClient.dll
@@ -943,3 +940,7 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\refint\E-Commerce.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.pdb
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.genruntimeconfig.cache
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\ref\E-Commerce.dll
+D:\work\E-commerce - Copy (3)\E-Commerce\bin\Debug\net8.0\E-Commerce.staticwebassets.endpoints.json
+D:\work\E-commerce - Copy (3)\E-Commerce\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\work\E-commerce - Copy (3)\E-Commerce\obj\Debug\net8.0\staticwebassets\msbuild.E-Commerce.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\work\E-commerce - Copy (3)\E-Commerce\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

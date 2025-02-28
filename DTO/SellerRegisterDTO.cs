@@ -16,6 +16,6 @@ namespace E_Commerce.DTO
         public string PhoneNumber { get; set; }
 
         [JsonIgnore]
-        public string ClientUri { get; set; } = @"http://pazzify.runasp.net/Seller/Seller-ConFirm-Email";
+        public string ClientUri { get; set; } = @"https://ecommerce.amrkhaled.me/Seller/Seller-ConFirm-Email";
     }
 }

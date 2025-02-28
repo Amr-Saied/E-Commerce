@@ -15,14 +15,32 @@ using E_Commerce.Interfaces;
 using E_Commerce.DbInitliazer;
 using Microsoft.EntityFrameworkCore.Internal;
 using E_Commerce.Context;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load environment variables from .env file
+Env.Load();
+
+// Access environment variables
+var ConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+var jwtSigningKey = Environment.GetEnvironmentVariable("Jwt__SigningKey");
+var smtpUsername = Environment.GetEnvironmentVariable("Smtp__Username");
+var smtpPassword = Environment.GetEnvironmentVariable("Smtp__Password");
+var googleClientId = Environment.GetEnvironmentVariable("Authentication__Google__ClientId");
+var googleClientSecret = Environment.GetEnvironmentVariable("Authentication__Google__ClientSecret");
+var twilioAccountSID = Environment.GetEnvironmentVariable("Twilio__AccountSID");
+var twilioAuthToken = Environment.GetEnvironmentVariable("Twilio__AuthToken");
+var twilioFromPhoneNumber = Environment.GetEnvironmentVariable("Twilio__FromPhoneNumber");
+var adminUserName = Environment.GetEnvironmentVariable("AdminCredentials__UserName");
+var adminPassword = Environment.GetEnvironmentVariable("AdminCredentials__Password");
+var adminLoginEndPointHash = Environment.GetEnvironmentVariable("SuperLogins__AdminLoginEndPointHash");
+var sellerLoginEndPointHash = Environment.GetEnvironmentVariable("SuperLogins__SellerLogininEndPointHash");
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(); // You can also add other providers (e.g., Debug, EventSource)
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -46,6 +64,7 @@ builder.Services.AddScoped<IVariationService, VariationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddSwaggerGen(options =>
@@ -79,13 +98,20 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
-builder.Services.AddDbContext<ECommerceDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ECommerceDbContext>(options =>
+    options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")));
 
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<ECommerceDbContext>().AddDefaultTokenProviders();
 
-var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
+var jwtOptions = new JwtOptions
+{
+    Issuer = Environment.GetEnvironmentVariable("Jwt__Issuer"),
+    Audience = Environment.GetEnvironmentVariable("Jwt__Audience"),
+    LifeTime = int.Parse(Environment.GetEnvironmentVariable("Jwt__LifeTime")),
+    SigningKey = jwtSigningKey
+};
 builder.Services.AddSingleton(jwtOptions);
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Use cookies as the default scheme
@@ -107,23 +133,33 @@ builder.Services.AddAuthentication(options =>
 }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) // Register cookie authentication
 .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 {
-    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    options.ClientId = googleClientId;
+    options.ClientSecret = googleClientSecret;
     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Store the results in cookies
 });
 
-
-builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("Twilio"));
+builder.Services.Configure<TwilioSettings>(options =>
+{
+    options.AccountSID = twilioAccountSID;
+    options.AuthToken = twilioAuthToken;
+    options.FromPhoneNumber = twilioFromPhoneNumber;
+});
 builder.Services.AddTransient<ISMsService, SmsService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-Commerce API v1"));
+//}
+//else
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    app.UseHsts();
+//}
 
 app.UseCors("AllowAll");
 
