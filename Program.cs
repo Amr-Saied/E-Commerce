@@ -18,6 +18,8 @@ using E_Commerce.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//hello this is for azure
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(); // You can also add other providers (e.g., Debug, EventSource)
 
