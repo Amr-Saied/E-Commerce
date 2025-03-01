@@ -368,3 +368,6 @@ D:\work\E-commerce - Copy (3)\E-Commerce\obj\Release\net9.0\refint\E-Commerce.dl
 D:\work\E-commerce - Copy (3)\E-Commerce\obj\Release\net9.0\E-Commerce.pdb
 D:\work\E-commerce - Copy (3)\E-Commerce\obj\Release\net9.0\E-Commerce.genruntimeconfig.cache
 D:\work\E-commerce - Copy (3)\E-Commerce\obj\Release\net9.0\ref\E-Commerce.dll
+D:\work\E-commerce - Copy (3)\E-Commerce\bin\Release\net9.0\appsettings.Production.json
+D:\work\E-commerce - Copy (3)\E-Commerce\bin\Release\net9.0\DotNetEnv.dll
+D:\work\E-commerce - Copy (3)\E-Commerce\bin\Release\net9.0\Sprache.dll

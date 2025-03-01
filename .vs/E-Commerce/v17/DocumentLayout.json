@@ -3,12 +3,36 @@
   "WorkspaceRootPath": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\database initializer\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:database initializer\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\database initializer\\idbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:database initializer\\idbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\e-commerce.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:e-commerce.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -115,14 +139,6 @@
       "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:context\\ecommercedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\migration.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
       "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:migration.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
@@ -135,16 +151,8 @@
       "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\e-commerce.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:e-commerce.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83EC66E2-E222-4B6B-81C8-DD0FA14BF0CA}|E-Commerce.csproj|d:\\work\\e-commerce - copy (3)\\e-commerce\\jwtoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -221,11 +229,37 @@
       "DocumentGroups": [
         {
           "DockedHeight": 196,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "DBInitializer.cs",
+              "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Database Initializer\\DBInitializer.cs",
+              "RelativeDocumentMoniker": "Database Initializer\\DBInitializer.cs",
+              "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Database Initializer\\DBInitializer.cs",
+              "RelativeToolTip": "Database Initializer\\DBInitializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T00:15:23.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IDBInitializer.cs",
+              "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Database Initializer\\IDBInitializer.cs",
+              "RelativeDocumentMoniker": "Database Initializer\\IDBInitializer.cs",
+              "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Database Initializer\\IDBInitializer.cs",
+              "RelativeToolTip": "Database Initializer\\IDBInitializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T00:14:41.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "IProductService.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Interfaces\\IProductService.cs",
               "RelativeDocumentMoniker": "Interfaces\\IProductService.cs",
@@ -237,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "CategoryService.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Services\\CategoryService.cs",
               "RelativeDocumentMoniker": "Services\\CategoryService.cs",
@@ -249,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService.cs",
@@ -261,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "Interfaces\\IUserService.cs",
@@ -273,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "ProductService.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Services\\ProductService.cs",
               "RelativeDocumentMoniker": "Services\\ProductService.cs",
@@ -285,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "UserProductController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\UserProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserProductController.cs",
@@ -297,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "TwilioSettings.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\TwilioSettings.cs",
               "RelativeDocumentMoniker": "TwilioSettings.cs",
@@ -309,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "SmtpConfig.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\SmtpConfig.cs",
               "RelativeDocumentMoniker": "SmtpConfig.cs",
@@ -321,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "UserResetPasswordRequestDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\UserResetPasswordRequestDTO.cs",
               "RelativeDocumentMoniker": "DTO\\UserResetPasswordRequestDTO.cs",
@@ -333,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "UserResendEmailDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\UserResendEmailDTO.cs",
               "RelativeDocumentMoniker": "DTO\\UserResendEmailDTO.cs",
@@ -345,7 +379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "SellerResetPasswordRequestDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\SellerResetPasswordRequestDTO.cs",
               "RelativeDocumentMoniker": "DTO\\SellerResetPasswordRequestDTO.cs",
@@ -357,7 +391,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "SellerResendEmailDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\SellerResendEmailDTO.cs",
               "RelativeDocumentMoniker": "DTO\\SellerResendEmailDTO.cs",
@@ -369,7 +403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "SellerRegisterDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\SellerRegisterDTO.cs",
               "RelativeDocumentMoniker": "DTO\\SellerRegisterDTO.cs",
@@ -381,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "ReviewDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\ReviewDTO.cs",
               "RelativeDocumentMoniker": "DTO\\ReviewDTO.cs",
@@ -393,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "ResetPasswordDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\ResetPasswordDTO.cs",
               "RelativeDocumentMoniker": "DTO\\ResetPasswordDTO.cs",
@@ -405,7 +439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "RegisterDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\RegisterDTO.cs",
               "RelativeDocumentMoniker": "DTO\\RegisterDTO.cs",
@@ -417,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "ProductItemDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\ProductItemDTO.cs",
               "RelativeDocumentMoniker": "DTO\\ProductItemDTO.cs",
@@ -429,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "LoginDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\LoginDTO.cs",
               "RelativeDocumentMoniker": "DTO\\LoginDTO.cs",
@@ -441,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 28,
               "Title": "EditProductDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\EditProductDTO.cs",
               "RelativeDocumentMoniker": "DTO\\EditProductDTO.cs",
@@ -453,7 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "CategoryDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\CategoryDTO.cs",
               "RelativeDocumentMoniker": "DTO\\CategoryDTO.cs",
@@ -465,7 +499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 30,
               "Title": "AddProductRequestDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\DTO\\AddProductRequestDTO.cs",
               "RelativeDocumentMoniker": "DTO\\AddProductRequestDTO.cs",
@@ -477,20 +511,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAB4BAAAAAAAAAAAQwCMBAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAAGEAAABzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T20:56:03.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T20:56:03.634Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "SellerProductController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\SellerProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\SellerProductController.cs",
@@ -502,7 +535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "SellerController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\SellerController.cs",
               "RelativeDocumentMoniker": "Controllers\\SellerController.cs",
@@ -514,7 +547,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 32,
               "Title": "AdminController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
@@ -526,7 +559,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": ".gitignore",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -538,7 +571,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 56,
               "Title": "20250221192952_AzureMigrations.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20250221192952_AzureMigrations.cs",
               "RelativeDocumentMoniker": "Migrations\\20250221192952_AzureMigrations.cs",
@@ -550,7 +583,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 34,
               "Title": "migration.sql",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\migration.sql",
               "RelativeDocumentMoniker": "migration.sql",
@@ -561,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 35,
               "Title": ".env",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\.env",
               "RelativeDocumentMoniker": ".env",
@@ -573,7 +606,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 3,
               "Title": "E-Commerce.csproj",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
               "RelativeDocumentMoniker": "E-Commerce.csproj",
@@ -585,7 +618,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 36,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -597,7 +630,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 40,
               "Title": "E-Commerce",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\E-Commerce.csproj",
               "RelativeDocumentMoniker": "E-Commerce.csproj",
@@ -608,7 +641,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 6,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\appsettings.Development.json",
               "RelativeDocumentMoniker": "appsettings.Development.json",
@@ -620,19 +653,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 4,
               "Title": "appsettings.Production.json",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\appsettings.Production.json",
               "RelativeDocumentMoniker": "appsettings.Production.json",
               "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\appsettings.Production.json",
               "RelativeToolTip": "appsettings.Production.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-21T15:49:16.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 31,
               "Title": "DemoController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Controllers\\DemoController.cs",
               "RelativeDocumentMoniker": "Controllers\\DemoController.cs",
@@ -644,7 +677,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 38,
               "Title": "JwtOptions.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\JwtOptions.cs",
               "RelativeDocumentMoniker": "JwtOptions.cs",
@@ -662,25 +695,26 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAC0AAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAUwGYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T15:35:11.704Z"
+              "WhenOpened": "2025-02-02T15:35:11.704Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAYwB4AAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-02T15:01:39.44Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 41,
               "Title": "20250202143019_ModifyingDeployedDB.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20250202143019_ModifyingDeployedDB.cs",
               "RelativeDocumentMoniker": "Migrations\\20250202143019_ModifyingDeployedDB.cs",
@@ -692,7 +726,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\amrsa\\AppData\\Roaming\\Microsoft\\UserSecrets\\ea07387c-fa84-4d48-b133-ffe6e4a1a440\\secrets.json",
               "ToolTip": "C:\\Users\\amrsa\\AppData\\Roaming\\Microsoft\\UserSecrets\\ea07387c-fa84-4d48-b133-ffe6e4a1a440\\secrets.json",
@@ -702,7 +736,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 33,
               "Title": "ECommerceDbContext.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Context\\ECommerceDbContext.cs",
               "RelativeDocumentMoniker": "Context\\ECommerceDbContext.cs",
@@ -714,7 +748,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 55,
               "Title": "20241202174758_InitialCreate.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20241202174758_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20241202174758_InitialCreate.cs",
@@ -725,7 +759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 42,
               "Title": "20241202174651_InitialCreate.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20241202174651_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20241202174651_InitialCreate.cs",
@@ -736,7 +770,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 43,
               "Title": "20241202174522_InitialCreate.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20241202174522_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20241202174522_InitialCreate.cs",
@@ -747,7 +781,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 44,
               "Title": "20241202174036_InitialCreate.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20241202174036_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20241202174036_InitialCreate.cs",
@@ -758,7 +792,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 45,
               "Title": "20241202143722_InitialCreate.cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Migrations\\20241202143722_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20241202143722_InitialCreate.cs",
@@ -769,7 +803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 54,
               "Title": "ECommerceDbContext .cs",
               "DocumentMoniker": "D:\\work\\E-commerce - Copy (3)\\E-Commerce\\Context\\ECommerceDbContext .cs",
               "RelativeDocumentMoniker": "Context\\ECommerceDbContext .cs",
@@ -780,7 +814,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 46,
               "Title": "dbo.AspNetUsers.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUsers.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUsers.sql",
@@ -789,7 +823,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 51,
               "Title": "ExternalLogInController.cs",
               "DocumentMoniker": "D:\\work\\E-commerce\\E-Commerce\\Controllers\\ExternalLogInController.cs",
               "RelativeDocumentMoniker": "..\\..\\E-commerce\\E-Commerce\\Controllers\\ExternalLogInController.cs",
@@ -800,7 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 47,
               "Title": "dbo.Sellers.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.Sellers.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.Sellers.sql",
@@ -809,7 +843,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 48,
               "Title": "dbo.Admins.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.Admins.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.Admins.sql",
@@ -818,7 +852,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 52,
               "Title": "ResetPasswordRequestDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce\\E-Commerce\\DTO\\ResetPasswordRequestDTO.cs",
               "RelativeDocumentMoniker": "..\\..\\E-commerce\\E-Commerce\\DTO\\ResetPasswordRequestDTO.cs",
@@ -829,7 +863,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 50,
               "Title": "dbo.AspNetUserLogins.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUserLogins.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUserLogins.sql",
@@ -838,7 +872,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 49,
               "Title": "dbo.AspNetUserClaims.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUserClaims.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/more123_SQLEXPRESS/E_CommerceDB/True/SqlTable/dbo.AspNetUserClaims.sql",
@@ -847,7 +881,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 53,
               "Title": "ResendEmailDTO.cs",
               "DocumentMoniker": "D:\\work\\E-commerce\\E-Commerce\\DTO\\ResendEmailDTO.cs",
               "RelativeDocumentMoniker": "..\\..\\E-commerce\\E-Commerce\\DTO\\ResendEmailDTO.cs",

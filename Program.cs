@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using E_Commerce.Repository;
 using E_Commerce.Interfaces;
-using E_Commerce.DbInitliazer;
+using E_Commerce.Database_Initializer;
 using Microsoft.EntityFrameworkCore.Internal;
 using E_Commerce.Context;
 using DotNetEnv;
@@ -65,7 +65,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IDBInitializer, DBInitializer>();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -148,10 +148,15 @@ builder.Services.AddTransient<ISMsService, SmsService>();
 
 var app = builder.Build();
 
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<IDBInitializer>();
+
+await seeder.initialise();
+
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseDeveloperExceptionPage();
+app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-Commerce API v1"));
 //}

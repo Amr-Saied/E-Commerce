@@ -5,7 +5,7 @@
     <_SelectedScaffolderID>IdentityScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>
-    <NameOfLastUsedPublishProfile>D:\work\E-commerce - Copy %283%29\E-Commerce\Properties\PublishProfiles\site17182-WebDeploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\work\E-commerce - Copy %283%29\E-Commerce\Properties\PublishProfiles\ecommerceserver - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
