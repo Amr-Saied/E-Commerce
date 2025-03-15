@@ -15,6 +15,7 @@ using E_Commerce.Interfaces;
 using E_Commerce.DbInitliazer;
 using Microsoft.EntityFrameworkCore.Internal;
 using E_Commerce.Context;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,9 +44,11 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<ISellerService, SellerService>();
 builder.Services.AddScoped<IVariationService, VariationService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+//builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 builder.Services.AddSwaggerGen(options =>
@@ -78,8 +81,12 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+var configuration = builder.Configuration;
+var stripeSettingsSection = configuration.GetSection("Stripe");
+builder.Services.Configure<StripeSettings>(stripeSettingsSection);
 
-
+var stripeSettings = stripeSettingsSection.Get<StripeSettings>();
+StripeConfiguration.ApiKey = stripeSettings.SecretKey;
 builder.Services.AddDbContext<ECommerceDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<ECommerceDbContext>().AddDefaultTokenProviders();
@@ -119,11 +126,10 @@ builder.Services.AddTransient<ISMsService, SmsService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseCors("AllowAll");
 
@@ -146,3 +152,10 @@ app.Run();
 //        dbIntializer.Initialize();
 //    }
 //}
+
+
+public class StripeSettings
+{
+    public string SecretKey { get; set; }
+    public string PublishableKey { get; set; }
+}

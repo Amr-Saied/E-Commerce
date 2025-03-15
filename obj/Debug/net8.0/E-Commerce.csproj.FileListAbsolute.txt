@@ -711,7 +711,6 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Microsoft.VisualStudio
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
@@ -739,7 +738,6 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Composition.Hos
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Composition.Runtime.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Composition.TypedParts.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Management.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Memory.Data.dll
@@ -747,8 +745,6 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Reflection.Meta
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Security.Permissions.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\System.Windows.Extensions.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Twilio.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\ar\Humanizer.resources.dll
@@ -895,7 +891,6 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-arm\nativ
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -916,11 +911,8 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-arm\nativ
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.csproj.AssemblyReference.cache
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.AssemblyInfoInputs.cache
@@ -943,3 +935,4 @@ C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\refint\E-Commerce.dll
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.pdb
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\E-Commerce.genruntimeconfig.cache
 C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Debug\net8.0\ref\E-Commerce.dll
+C:\Users\10\Desktop\ecommerce\E-Commerce\bin\Debug\net8.0\Stripe.net.dll

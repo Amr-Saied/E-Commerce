@@ -17,10 +17,11 @@ namespace E_Commerce.Controllers
     public class UserProductController : ControllerBase
     {
         private readonly IProductService _ProductService;
-
-        public UserProductController(IProductService productService)
+        private readonly IUserService _userService;
+        public UserProductController(IProductService productService , IUserService userService)
         {
             _ProductService = productService;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -139,6 +140,21 @@ namespace E_Commerce.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var wishlist = await _ProductService.GetUserWishlistAsync(userId);
             return Ok(wishlist);
+        }
+        [Authorize(Roles = "User")]
+        [HttpPost("Checkout")]
+        public async Task<IActionResult> Checkout()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
+            {
+                var order = await _userService.CheckoutAsync(userId);
+                return Ok(new { message = "Checkout successful", order });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

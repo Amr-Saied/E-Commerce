@@ -313,3 +313,14 @@ D:\work\E-commerce\E-Commerce\obj\Release\net8.0\refint\E-Commerce.dll
 D:\work\E-commerce\E-Commerce\obj\Release\net8.0\E-Commerce.pdb
 D:\work\E-commerce\E-Commerce\obj\Release\net8.0\E-Commerce.genruntimeconfig.cache
 D:\work\E-commerce\E-Commerce\obj\Release\net8.0\ref\E-Commerce.dll
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.csproj.AssemblyReference.cache
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.AssemblyInfoInputs.cache
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.AssemblyInfo.cs
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.csproj.CoreCompileInputs.cache
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.sourcelink.json
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.dll
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\refint\E-Commerce.dll
+C:\Users\10\Desktop\ecommerce\E-Commerce\obj\Release\net8.0\E-Commerce.pdb

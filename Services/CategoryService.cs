@@ -1,8 +1,10 @@
 ﻿using E_Commerce.Context;
 using E_Commerce.DTO;
 using E_Commerce.Interfaces;
+using E_Commerce.Models;
 using Google;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace E_Commerce.Services
 {
@@ -26,6 +28,19 @@ namespace E_Commerce.Services
                 .ToListAsync();
 
             return categories;
+        }
+
+        public async Task<Category> GetCategoryByIdAsync(int categoryId)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
+
+            if (category == null)
+            {
+                throw new ValidationException("Category not found.");
+            }
+
+            return category;
         }
     }
 }

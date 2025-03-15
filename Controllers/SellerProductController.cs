@@ -51,112 +51,142 @@ namespace E_Commerce.Controllers
             return Ok(variationOptions);
         }
 
-        [Authorize(Roles = "Seller, Admin")]
-        [HttpPost("AddProduct")]
-        public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
-        {
-            if (productDTO == null || productDTO.CategoryId == 0)
-            {
-                return BadRequest("Invalid product data");
-            }
+        //[Authorize(Roles = "Seller, Admin")]
+        //[HttpPost("AddProductItem")]
+        //public async Task<IActionResult> AddProductItem([FromBody] AddProductRequestDTO productRequest)
+        //{
+        //    var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    if (string.IsNullOrEmpty(sellerId))
+        //    {
+        //        return Unauthorized("Seller not identified.");
+        //    }
 
-            var product = new Product
-            {
-                Name = productDTO.Name,
-                CategoryId = productDTO.CategoryId
-            };
+        //    var category = await _CategoryService.GetCategoryByIdAsync(productRequest.CategoryId);
+        //    if (category == null)
+        //    {
+        //        return BadRequest("Invalid category.");
+        //    }
 
-            var savedProduct = await _SellerService.AddProductAsync(product);
+        //    var normalizedProductName = productRequest.Name.ToLower().Replace(" ", "");
 
-            foreach (var variationDTO in productDTO.Variations)
-            {
-                var productItem = new ProductItem
-                {
-                    ProductId = savedProduct.Id,
-                    SKU = GenerateSKU(savedProduct.Id, variationDTO.VariationId), 
-                    Price = variationDTO.Price,
-                    Description = productDTO.Description,
-                    SellerId = "sellerId",
-                    QtyInStock = variationDTO.QtyInStock, 
-                    ProductImage = variationDTO.ProductImage 
-                };
+        //    var existingProduct = await _ProductService.GetProductByNormalizedNameAsync(normalizedProductName);
 
-                await _SellerService.AddProductItemAsync(productItem);
-                _ = Task.Run(() => _notificationService.NotifyUserWishListAsync(productItem.Id));
+        //    Product product;
+        //    if (existingProduct != null)
+        //    {
+        //        product = existingProduct;
+        //    }
+        //    else
+        //    {
+        //        product = new Product
+        //        {
+        //            Name = normalizedProductName,
+        //            CategoryId = productRequest.CategoryId,
+        //            ProductItems = new List<ProductItem>()
+        //        };
 
-                foreach (var optionId in variationDTO.VariationOptionIds)
-                {
-                    var productConfiguration = new ProductConfiguration
-                    {
-                        ProductItem = productItem,
-                        VariationOptionId = optionId
-                    };
+        //        var productAdded = await _ProductService.AddProductAsync(product);
+        //        if (!productAdded)
+        //        {
+        //            return StatusCode(500, "Error occurred while creating the product.");
+        //        }
+        //    }
 
-                    await _SellerService.AddProductConfigurationAsync(productConfiguration);
-                }
-            }
+        //    var productItem = new ProductItem
+        //    {
+        //        SKU = productRequest.SKU,
+        //        Price = productRequest.Price,
+        //        QtyInStock = productRequest.QtyInStock,
+        //        Description = productRequest.Description,
+        //        ProductImage = productRequest.ProductImage,
+        //        SellerId = sellerId,
+        //    };
 
-            return Ok(savedProduct);
-        }
+        //        await _SellerService.AddProductItemAsync(productItem);
+        //        _ = Task.Run(() => _notificationService.NotifyUserWishListAsync(productItem.Id));
 
-        [Authorize(Roles = "Seller, Admin")]
-        [HttpGet("GetProductItems/{sellerId}")]
-        public async Task<IActionResult> GetProductItems(string sellerId)
-        {
-            var realSellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (realSellerId == sellerId)
-            {
-                var productItems = await _SellerService.GetProductItemsBySellerAsync(sellerId);
-                if (productItems == null || !productItems.Any())
-                {
-                    return NotFound("No product items found for this seller.");
-                }
+        //        var optionEntity = await _VariationService.GetVariationOptionByIdAsync(variation.VariationOptionId, variation.VariationId);
+        //        if (optionEntity == null || optionEntity.VariationId != variation.VariationId)
+        //        {
+        //            return BadRequest($"Invalid variation option: {variation.VariationOptionId}");
+        //        }
 
-                return Ok(productItems);
-            }
-            else
-            {
-                return Forbid("Not Authorized");
-            }
+        //        var productConfiguration = new ProductConfiguration
+        //        {
+        //            VariationOptionId = variation.VariationOptionId,
+        //            ProductItemId = productItem.Id 
+        //        };
 
-        }
+        //        productItem.ProductConfigurations.Add(productConfiguration);
+        //    }
 
-        [Authorize(Roles = "Seller, Admin")]
-        [HttpDelete("DeleteProductItem/{productItemId}")]
-        public async Task<IActionResult> DeleteProductItem(int productItemId)
-        {
-            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var productItem = await _SellerService.DeleteProductItemAsync(productItemId, sellerId);
+        //    var productConfigurationsAdded = await _ProductService.UpdateProductItemAsync(productItem);
+        //    if (!productConfigurationsAdded)
+        //    {
+        //        return StatusCode(500, "Error occurred while saving product configurations.");
+        //    }
 
-            if (productItem == null)
-            {
-                return NotFound("Product item not found or you do not have permission to delete this item.");
-            }
+        //    return Ok("Product item and configurations added successfully.");
+        //}
 
-            return Ok("Product item deleted successfully.");
-        }
+        //[Authorize(Roles = "Seller, Admin")]
+        //[HttpGet("GetProductItems/{sellerId}")]
+        //public async Task<IActionResult> GetProductItems(string sellerId)
+        //{
+        //    var realSellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    if (realSellerId == sellerId)
+        //    {
+        //        var productItems = await _SellerService.GetProductItemsBySellerAsync(sellerId);
+        //        if (productItems == null || !productItems.Any())
+        //        {
+        //            return NotFound("No product items found for this seller.");
+        //        }
 
-        [Authorize(Roles = "Seller, Admin")]
-        [HttpPut("EditProductItem/{productItemId}")]
-        public async Task<IActionResult> EditProductItem(int productItemId, [FromBody] EditProductDTO productItemDTO)
-        {
-            if (productItemDTO == null)
-            {
-                return BadRequest("Invalid product data.");
-            }
-            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var updatedProductItem = await _SellerService.EditProductItemAsync(productItemDTO, sellerId, productItemId);
+        //        return Ok(productItems);
+        //    }
+        //    else
+        //    {
+        //        return Forbid("Not Authorized");
+        //    }
 
-            if (updatedProductItem == null)
-            {
-                return NotFound("Product item not found or you do not have permission to edit this item.");
-            }
-            return Ok(updatedProductItem);
-        }
+        //}
 
-        private string GenerateSKU(int productId, int variationId)
-        {
-            return $"SKU-{productId}-{variationId}";
-        }
+        //[Authorize(Roles = "Seller, Admin")]
+        //[HttpDelete("DeleteProductItem/{productItemId}")]
+        //public async Task<IActionResult> DeleteProductItem(int productItemId)
+        //{
+        //    var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var productItem = await _SellerService.DeleteProductItemAsync(productItemId, sellerId);
+
+        //    if (productItem == null)
+        //    {
+        //        return NotFound("Product item not found or you do not have permission to delete this item.");
+        //    }
+
+        //    return Ok("Product item deleted successfully.");
+        //}
+
+        //[Authorize(Roles = "Seller, Admin")]
+        //[HttpPut("EditProductItem/{productItemId}")]
+        //public async Task<IActionResult> EditProductItem(int productItemId, [FromBody] EditProductDTO productItemDTO)
+        //{
+        //    if (productItemDTO == null)
+        //    {
+        //        return BadRequest("Invalid product data.");
+        //    }
+        //    var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var updatedProductItem = await _SellerService.EditProductItemAsync(productItemDTO, sellerId, productItemId);
+
+        //    if (updatedProductItem == null)
+        //    {
+        //        return NotFound("Product item not found or you do not have permission to edit this item.");
+        //    }
+        //    return Ok(updatedProductItem);
+        //}
+
+        //private string GenerateSKU(int productId, int variationId)
+        //{
+        //    return $"SKU-{productId}-{variationId}";
+        //}
     }
 }

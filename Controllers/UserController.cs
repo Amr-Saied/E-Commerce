@@ -2,7 +2,9 @@
 using DnsClient;
 using E_Commerce.Context;
 using E_Commerce.DTO;
+using E_Commerce.Interfaces;
 using E_Commerce.Models;
+using E_Commerce.Services;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -35,15 +37,17 @@ namespace E_Commerce.Controllers
         private readonly JwtOptions _jwtOptions;
         private readonly ILogger<UserController> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly IUserService _userService;
+        private readonly IPaymentService _paymentService;
         public UserController(
-
+            IUserService userService,
             UserManager<User> userManager, 
             SignInManager<User> signInManager, 
             JwtOptions jwtoptions, 
             ILogger<UserController> logger, 
             IEmailSender emailSender,
-            ECommerceDbContext context)
+            ECommerceDbContext context,
+            IPaymentService paymentService)
 
         {
             _userManager = userManager;
@@ -52,6 +56,8 @@ namespace E_Commerce.Controllers
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _userService = userService;
+            _paymentService = paymentService;
         }
 
         [AllowAnonymous]
@@ -331,7 +337,61 @@ namespace E_Commerce.Controllers
             var token_2 = TokenGenerator(user, "User");
             return token_2;
         }
+        [Authorize(Roles= "User")]
+        [HttpPost("AddShippingAddress")]
+        public async Task<IActionResult> AddShippingAddress([FromBody] ShippingAddress shippingAddress)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (shippingAddress == null)
+            {
+                return BadRequest("Shipping address is required.");
+            }
 
+            var addedAddress = await _userService.AddShippingAddressAsync(userId, shippingAddress);
+            return Ok(new { message = "Shipping address added successfully", shippingAddress = addedAddress });
+        }
+        [Authorize(Roles = "User")]
+        [HttpGet("GetShippingAddresses")]
+        public async Task<IActionResult> GetShippingAddresses()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var addresses = await _userService.GetShippingAddressesByUserIdAsync(userId);
+            if (addresses == null || !addresses.Any())
+            {
+                return NotFound(new { message = "No shipping addresses found for the user" });
+            }
+
+            return Ok(addresses);
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpPost("payment-intent")]
+        public async Task<IActionResult> CreatePaymentIntent([FromQuery] string email, [FromQuery] string paymentMethodId , [FromQuery] string name)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var paymentIntentId = await _paymentService.CreatePaymentIntentAsync(email, paymentMethodId,userId,name);
+                return Ok(new { success = true, email, paymentIntent = paymentIntentId });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
+
+       
+  
+        [HttpPost("webhook")]
+        public async Task<IActionResult> Webhook()
+        {
+            using var reader = new StreamReader(Request.Body);
+            var json = await reader.ReadToEndAsync();
+            var signatureHeader = Request.Headers["Stripe-Signature"];
+
+            var success = await _paymentService.HandleWebhookAsync(json, signatureHeader);
+            return success ? Ok(new { success = true }) : BadRequest(new { success = false, message = "Webhook processing failed" });
+        }
     }
 }

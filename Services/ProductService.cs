@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Context;
+using E_Commerce.DTO;
 using E_Commerce.Interfaces;
 using E_Commerce.Models;
 using Microsoft.EntityFrameworkCore;
@@ -198,6 +199,44 @@ namespace E_Commerce.Services
             .ToListAsync();
         }
 
-       
+        public Task<bool> AddProductAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddReviewAsync(Review review)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product?> GetProductByNormalizedNameAsync(string normalizedProductName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> AddProductItemAsync(ProductItem productItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateProductItemAsync(ProductItem productItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductItem> GetProductItemByIdAsync(int productItemId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ProductItem>> GetProductItemsByCategoryAsync(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ProductItemDTO>> GetTopRatedProductsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
