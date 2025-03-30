@@ -34,7 +34,6 @@ namespace E_Commerce.Context
         public DbSet<Variation> Variations { get; set; }
         public DbSet<VariationOption> VariationOptions { get; set; }
         public DbSet<WishListItems> WishlistItems { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

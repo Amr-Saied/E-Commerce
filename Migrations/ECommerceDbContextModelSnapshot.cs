@@ -653,6 +653,9 @@ namespace E_Commerce.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsNotified")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProductItemId")
                         .HasColumnType("int");
 

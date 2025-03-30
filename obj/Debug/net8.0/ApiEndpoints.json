@@ -325,6 +325,22 @@
   },
   {
     "ContainingType": "E_Commerce.Controllers.UserController",
+    "Method": "AddShippingAddress",
+    "RelativePath": "User/AddShippingAddress",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shippingAddress",
+        "Type": "E_Commerce.Models.ShippingAddress",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserController",
     "Method": "EmailConfirmation",
     "RelativePath": "User/EmailConfirmation",
     "HttpMethod": "PUT",
@@ -346,12 +362,48 @@
   },
   {
     "ContainingType": "E_Commerce.Controllers.UserController",
+    "Method": "GetShippingAddresses",
+    "RelativePath": "User/GetShippingAddresses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserController",
     "Method": "GoogleLogin",
     "RelativePath": "User/google-login",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserController",
+    "Method": "CreatePaymentIntent",
+    "RelativePath": "User/payment-intent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "paymentMethodId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -429,6 +481,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "E_Commerce.Controllers.UserController",
+    "Method": "Webhook",
+    "RelativePath": "User/webhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "E_Commerce.Controllers.UserProductController",
     "Method": "AddToWishlist",
     "RelativePath": "UserProduct/add_wishlsit",
@@ -479,6 +541,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "E_Commerce.Controllers.UserProductController",
+    "Method": "Checkout",
+    "RelativePath": "UserProduct/Checkout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

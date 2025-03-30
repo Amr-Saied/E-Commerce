@@ -19,11 +19,13 @@ namespace E_Commerce.Controllers
     {
         private readonly IProductService _ProductService;
         private readonly IPaginationService _PaginationService;
+        private readonly IUserService _UserService;
 
-        public UserProductController(IProductService productService, IPaginationService paginationService)
+        public UserProductController(IProductService productService, IPaginationService paginationService, IUserService userService)
         {
             _ProductService = productService;
             _PaginationService = paginationService;
+            _UserService = userService;
         }
 
         [AllowAnonymous]
@@ -252,6 +254,20 @@ namespace E_Commerce.Controllers
             var wishlist = await _ProductService.GetUserWishlistAsync(userId);
             return Ok(wishlist);
         }
-
+        [Authorize(Roles = "User")]
+        [HttpPost("Checkout")]
+        public async Task<IActionResult> Checkout()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
+            {
+                var order = await _UserService.CheckoutAsync(userId);
+                return Ok(new { message = "Checkout successful", order });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

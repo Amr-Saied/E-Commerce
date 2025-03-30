@@ -17,14 +17,16 @@ namespace E_Commerce.Controllers
         private readonly ICategoryService _CategoryService;
         private readonly IVariationService _VariationService;
         private readonly IProductService _ProductService;
+        public readonly INotificationService _notificationService;
 
         public SellerProductController(ISellerService sellerService, ICategoryService categoryService, 
-            IVariationService variationService, IProductService productService)
+            IVariationService variationService, IProductService productService, INotificationService notificationService)
         {
             _SellerService = sellerService;
             _CategoryService = categoryService;
             _VariationService = variationService;
             _ProductService = productService;
+            _notificationService = notificationService;
         }
 
         [HttpGet("GetAllCategories")]

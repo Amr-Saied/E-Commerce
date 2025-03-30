@@ -2,6 +2,7 @@
 using DnsClient;
 using E_Commerce.Context;
 using E_Commerce.DTO;
+using E_Commerce.Interfaces;
 using E_Commerce.Models;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication;
@@ -20,7 +21,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
-
+using E_Commerce.Services;
 
 
 namespace E_Commerce.Controllers
@@ -35,15 +36,17 @@ namespace E_Commerce.Controllers
         private readonly JwtOptions _jwtOptions;
         private readonly ILogger<UserController> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly IPaymentService _paymentService;
+        private readonly IUserService _userService;
         public UserController(
-
+            IUserService userService,
             UserManager<User> userManager, 
             SignInManager<User> signInManager, 
             JwtOptions jwtoptions, 
             ILogger<UserController> logger, 
             IEmailSender emailSender,
-            ECommerceDbContext context)
+            ECommerceDbContext context,
+            IPaymentService paymentService)
 
         {
             _userManager = userManager;
@@ -52,14 +55,13 @@ namespace E_Commerce.Controllers
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _paymentService = paymentService;
         }
 
         [AllowAnonymous]
         [HttpPost("Add-User")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO register)
         {
-
-
             var userExists = await _userManager.FindByNameAsync(register.Username) != null ||
                              await _userManager.FindByEmailAsync(register.Email) != null ||
                              _userManager.Users.Any(u => u.PhoneNumber == register.PhoneNumber);
@@ -68,7 +70,7 @@ namespace E_Commerce.Controllers
             {
                 return BadRequest("Username, Email, or Phone Number already exists.");
             }
-              
+
             var user = new User
             {
                 UserName = register.Username,
@@ -77,34 +79,50 @@ namespace E_Commerce.Controllers
                 RegistrationDate = DateTime.Now
             };
 
+            // Create the user first
             var result = await _userManager.CreateAsync(user, register.Password);
 
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            if (result.Succeeded)
+            {
+                // Create a cart for the user
+                var cart = new Cart
+                {
+                    UserId = user.Id,
+                    User = user
+                };
 
-            var param = new Dictionary<string, string>
+                // Add the cart to the context and save changes
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                var param = new Dictionary<string, string>
             {
                 { "token" , token },
                 { "email" , user.Email}
             };
 
-            var callBack = QueryHelpers.AddQueryString(register.ClientUri, param);
+                var callBack = QueryHelpers.AddQueryString(register.ClientUri, param);
 
-            var emailSubject = "Email Confirmation Token";
-            var emailContent = $"Please confirm your account by clicking this link: <a href='{callBack}'>link</a>";
+                var emailSubject = "Email Confirmation Token";
+                var emailContent = $"Please confirm your account by clicking this link: <a href='{callBack}'>link</a>";
 
-            await _emailSender.SendEmailAsync(user.Email, emailSubject, emailContent);
+                await _emailSender.SendEmailAsync(user.Email, emailSubject, emailContent);
 
-
-            if (result.Succeeded)
-            {
-                return Ok(new 
+                return Ok(new
                 {
-                     message = "Registration successful!",
-                     token = token
+                    message = "Registration successful!",
+                    token = token
                 });
             }
 
-            return BadRequest("Error occurred during registration.");
+            var errors = result.Errors.Select(e => e.Description).ToList();
+            return BadRequest(new
+            {
+                message = "Error occurred during registration.",
+                errors = errors
+            });
         }
 
 
@@ -332,6 +350,57 @@ namespace E_Commerce.Controllers
             return token_2;
         }
 
+        [Authorize(Roles = "User")]
+        [HttpPost("AddShippingAddress")]
+        public async Task<IActionResult> AddShippingAddress([FromBody] ShippingAddress shippingAddress)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (shippingAddress == null)
+            {
+                return BadRequest("Shipping address is required.");
+            }
+            var addedAddress = await _userService.AddShippingAddressAsync(userId, shippingAddress);
+            return Ok(new { message = "Shipping address added successfully", shippingAddress = addedAddress });
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet("GetShippingAddresses")]
+        public async Task<IActionResult> GetShippingAddresses()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var addresses = await _userService.GetShippingAddressesByUserIdAsync(userId);
+            if (addresses == null || !addresses.Any())
+            {
+                return NotFound(new { message = "No shipping addresses found for the user" });
+            }
+            return Ok(addresses);
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpPost("payment-intent")]
+        public async Task<IActionResult> CreatePaymentIntent([FromQuery] string email, [FromQuery] string paymentMethodId, [FromQuery] string name)
+        {
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var paymentIntentId = await _paymentService.CreatePaymentIntentAsync(email, paymentMethodId, userId, name);
+                return Ok(new { success = true, email, paymentIntent = paymentIntentId });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost("webhook")]
+        public async Task<IActionResult> Webhook()
+        {
+            using var reader = new StreamReader(Request.Body);
+            var json = await reader.ReadToEndAsync();
+            var signatureHeader = Request.Headers["Stripe-Signature"];
+            var success = await _paymentService.HandleWebhookAsync(json, signatureHeader);
+            return success ? Ok(new { success = true }) : BadRequest(new { success = false, message = "Webhook processing failed" });
+        }
 
     }
 }
